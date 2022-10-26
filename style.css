@@ -1,0 +1,9 @@
+body{
+    background-color: rgb(4, 19, 78);
+    
+}
+.box{
+    background-color: rgb(255, 0, 0);
+    color: rgb(255, 240, 0);
+    text-align: center;
+}
