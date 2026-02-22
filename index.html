@@ -4,11 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Harsh Verma | Terminal Portfolio</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
     <link rel="stylesheet" href="css/terminal.css">
 </head>
 <body class="theme-dark">
+    <div id="window-bar">
+        <div class="window-buttons">
+            <span class="close"></span>
+            <span class="minimize"></span>
+            <span class="maximize"></span>
+        </div>
+        <div class="window-title">guest@harshos: ~</div>
+    </div>
     <div id="terminal-container" onclick="document.getElementById('command-input').focus()">
         <div class="banner">
+            <div class="banner-content">
+                <div class="icon-cluster left-icons">
+                    <i class="devicon-kotlin-plain colored"></i>
+                    <i class="devicon-python-plain colored"></i>
+                    <i class="devicon-cplusplus-plain colored"></i>
+                    <i class="devicon-bash-plain"></i>
+                </div>
 <pre style="margin: 0; font-family: 'Fira Code', monospace; line-height: 1.2;">
   _   _                 _      ____   _____ 
  | | | | __ _ _ __  ___| |__  / __ \ / ____|
@@ -16,6 +32,13 @@
  |  _  | (_| | |   \__ \ | | | |  | |\___ \ 
  | | |_|\__,_|_|   |___/_| |_|\____/ |____/ 
 </pre>
+                <div class="icon-cluster right-icons">
+                    <i class="devicon-android-plain colored"></i>
+                    <i class="devicon-django-plain colored"></i>
+                    <i class="devicon-firebase-plain colored"></i>
+                    <i class="devicon-mysql-plain colored"></i>
+                </div>
+            </div>
             <div style="margin-top: 15px; font-weight: 700; color: var(--text-color);">Welcome to HarshOS v1.0.0 (tty1)</div>
             <div class="color-text" style="margin-top: 5px;">Type <span class="color-exe">'help'</span> to see available commands.</div>
             <div class="color-text">To view my details, try executing <span class="color-exe">'./about.sh'</span>.</div>
