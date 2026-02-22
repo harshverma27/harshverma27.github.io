@@ -12,11 +12,11 @@ const fileSystem = {
         },
         "contact.sh": {
             type: "executable",
-            content: `<div><span class="color-highlight">Email:</span> <a href="mailto:harshhvermaa@icloud.com">harshhvermaa@icloud.com</a></div>
+            content: `<div><span class="color-highlight">Email:</span> <a href="mailto:harshkardam246@gmail.com">harshkardam246@gmail.com</a></div>
 <div><span class="color-highlight">LinkedIn:</span> <a href="https://linkedin.com/in/harshhvermaa" target="_blank">linkedin.com/in/harshhvermaa</a></div>
 <div><span class="color-highlight">GitHub:</span> <a href="https://github.com/harshverma27" target="_blank">github.com/harshverma27</a></div>
 <div style="margin-top: 10px;"><span class="color-highlight">Resume:</span> <a href="resumes/Resume_Harsh.pdf" target="_blank">View/Download PDF</a></div>`,
-            source: `#!/bin/bash\necho "Email: harshhvermaa@icloud.com"\necho "LinkedIn: linkedin.com/in/harshhvermaa"\necho "GitHub: github.com/harshverma27"\necho "Resume: resumes/Resume_Harsh.pdf"`
+            source: `#!/bin/bash\necho "Email: harshkardam246@gmail.com"\necho "LinkedIn: linkedin.com/in/harshhvermaa"\necho "GitHub: github.com/harshverma27"\necho "Resume: resumes/Resume_Harsh.pdf"`
         },
         "education": {
             type: "directory",
