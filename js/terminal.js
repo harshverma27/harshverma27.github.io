@@ -136,8 +136,9 @@ function printToOutput(html) {
 function printCommandAction(cmdString) {
     let dirText = currentPathNames.length === 0 ? "~" : "~/" + currentPathNames.join('/');
     const html = `
-        <div style="margin-top: 10px; margin-bottom: 5px;">
-            <span class="prompt-user">guest@harshos</span><span class="prompt-symbol">:</span><span class="prompt-dir">${dirText}</span><span class="prompt-symbol">$</span> <span style="color: var(--text-color); font-weight: 500;">${escapeHTML(cmdString)}</span>
+        <div style="margin-top: 10px; margin-bottom: 5px; display: flex;">
+            <span class="prompt"><span class="prompt-user">guest@harshos</span><span class="prompt-symbol">:</span><span class="prompt-dir">${dirText}</span><span class="prompt-symbol">$</span></span>
+            <span style="color: var(--text-color); font-weight: 500;">${escapeHTML(cmdString)}</span>
         </div>
     `;
     printToOutput(html);
