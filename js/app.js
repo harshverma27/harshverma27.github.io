@@ -25,6 +25,7 @@ let zTop = 30;
 let selectedDesktopId = null;
 let focusedWindowId = null;
 let snapMenuHideTimer = null;
+let soundEnabled = true;
 
 const docs = {
   about: { title: "About Me", body: `<div class="doc-pane"><h3>Harsh Verma</h3><p>Open-source contributor and backend-focused developer with practical experience in Android, automation, Linux systems, and embedded hardware projects.</p><h4>README.md</h4><ul><li>Builds and ships software with CI-first workflows.</li><li>Contributes to large-scale OSS projects in GNOME ecosystem.</li><li>Works across backend systems, Raspberry Pi setups, and Android clients.</li></ul><p><strong>Current focus:</strong> developer tooling, reliable test automation, and scalable system workflows.</p></div>` },
@@ -158,13 +159,14 @@ function createWindow({ id, title, content, width = 860, height = 560 }) {
   windowsLayer.appendChild(win);
   focusWindow(win);
   syncRunningApps();
+  playTone(620, 0.03);
   return win;
 }
 
 function makeExplorerContent(sectionId) {
   const title = docs[sectionId].title;
   const links = fileSystem.desktop.map((id) => `<button class="quick-link ${id === sectionId ? "active" : ""}" data-open="${id}">${docs[id].title}</button>`).join("");
-  return `<div class="explorer-chrome"><button class="exp-btn">&#8592;</button><button class="exp-btn">&#8594;</button><button class="exp-btn">&#8593;</button><div class="address">This PC > Portfolio > ${title}</div><input class="search-mini" placeholder="Search ${title}" /></div><div class="explorer"><aside class="explorer-side"><h4>Quick access</h4>${links}</aside><section class="explorer-main"><div class="crumb">Items in ${title}</div><div class="explorer-toolbar"><button class="exp-btn view-btn" data-view="grid">Tiles</button><button class="exp-btn view-btn" data-view="list">List</button><button class="exp-btn sort-btn" data-sort="name">Sort A-Z</button></div><div class="file-grid" data-view="grid"><button class="file-card" data-doc="${sectionId}" data-name="README.md"><div class="file-icon doc"></div><div class="file-name">README.md</div></button><button class="file-card" data-doc="resume" data-name="Resume.pdf"><div class="file-icon doc"></div><div class="file-name">Resume.pdf</div></button></div></section><aside class="explorer-details"><h4>Details</h4><p><strong>Name:</strong> ${title}</p><p><strong>Type:</strong> Portfolio folder</p><p><strong>Contains:</strong> README.md</p><p><strong>Updated:</strong> ${new Date().toLocaleDateString()}</p></aside></div>`;
+  return `<div class="explorer-chrome"><button class="exp-btn">&#8592;</button><button class="exp-btn">&#8594;</button><button class="exp-btn">&#8593;</button><div class="address">This PC > Portfolio > ${title}</div><input class="search-mini" placeholder="Search ${title}" /></div><div class="explorer"><aside class="explorer-side"><h4>Quick access</h4>${links}</aside><section class="explorer-main"><div class="crumb">Items in ${title}</div><div class="explorer-toolbar"><button class="exp-btn view-btn" data-view="grid">Tiles</button><button class="exp-btn view-btn" data-view="list">List</button><button class="exp-btn view-btn" data-view="details">Details</button><button class="exp-btn sort-btn" data-sort="name">Sort A-Z</button></div><div class="file-grid" data-view="grid"><button class="file-card" data-doc="${sectionId}" data-name="README.md"><div class="file-icon doc"></div><div class="file-name">README.md</div></button><button class="file-card" data-doc="resume" data-name="Resume.pdf"><div class="file-icon doc"></div><div class="file-name">Resume.pdf</div></button></div><table class="details-table hidden"><thead><tr><th>Name</th><th>Type</th><th>Date modified</th><th>Size</th></tr></thead><tbody><tr data-doc="${sectionId}" data-name="README.md"><td>README.md</td><td>Markdown</td><td>${new Date().toLocaleDateString()}</td><td>4 KB</td></tr><tr data-doc="resume" data-name="Resume.pdf"><td>Resume.pdf</td><td>PDF</td><td>${new Date().toLocaleDateString()}</td><td>120 KB</td></tr></tbody></table></section><aside class="explorer-details"><h4>Details</h4><p><strong>Name:</strong> ${title}</p><p><strong>Type:</strong> Portfolio folder</p><p><strong>Contains:</strong> README.md</p><p><strong>Updated:</strong> ${new Date().toLocaleDateString()}</p></aside></div>`;
 }
 
 function bindExplorerEvents(win) {
@@ -177,11 +179,20 @@ function bindExplorerEvents(win) {
     btn.addEventListener("dblclick", () => openDocWindow(btn.dataset.doc));
   });
 
+  win.querySelectorAll(".details-table tbody tr").forEach((row) => {
+    row.addEventListener("dblclick", () => openDocWindow(row.dataset.doc));
+  });
+
   win.querySelectorAll(".view-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
       const grid = win.querySelector(".file-grid");
-      grid.dataset.view = btn.dataset.view;
-      grid.classList.toggle("list-view", btn.dataset.view === "list");
+      const table = win.querySelector(".details-table");
+      const mode = btn.dataset.view;
+      grid.dataset.view = mode;
+      grid.classList.toggle("list-view", mode === "list");
+      const detailsMode = mode === "details";
+      grid.classList.toggle("hidden", detailsMode);
+      table.classList.toggle("hidden", !detailsMode);
     });
   });
 
@@ -191,6 +202,11 @@ function bindExplorerEvents(win) {
       const cards = [...grid.querySelectorAll(".file-card")];
       cards.sort((a, b) => a.dataset.name.localeCompare(b.dataset.name));
       cards.forEach((card) => grid.appendChild(card));
+
+      const tbody = win.querySelector(".details-table tbody");
+      const rows = [...tbody.querySelectorAll("tr")];
+      rows.sort((a, b) => a.dataset.name.localeCompare(b.dataset.name));
+      rows.forEach((row) => tbody.appendChild(row));
     });
   });
 }
@@ -211,6 +227,7 @@ function attachWindowActions(win) {
       const action = btn.dataset.action;
       if (action === "close") win.remove();
       if (action === "min") {
+        playTone(290, 0.03);
         win.classList.add("anim-minimize");
         setTimeout(() => {
           win.classList.add("hidden");
@@ -218,6 +235,7 @@ function attachWindowActions(win) {
         }, 140);
       }
       if (action === "max") {
+        playTone(520, 0.03);
         const max = win.dataset.maximized === "1";
         if (!max) {
           win.dataset.prev = JSON.stringify({ left: win.style.left, top: win.style.top, width: win.style.width, height: win.style.height });
@@ -298,6 +316,7 @@ function attachSnapMenu(win) {
         win.style.height = prev.height || "560px";
       }
       hideMenu();
+      playTone(570, 0.03);
     });
   });
 }
@@ -387,13 +406,55 @@ function syncRunningApps() {
         win.classList.add("anim-restore");
         setTimeout(() => win.classList.remove("anim-restore"), 150);
         focusWindow(win);
+        playTone(500, 0.03);
       }
       else if (win.id === focusedWindowId) win.classList.add("hidden");
       else focusWindow(win);
       syncRunningApps();
     });
+
+    btn.addEventListener("contextmenu", (event) => {
+      event.preventDefault();
+      contextMenu.innerHTML = "";
+      [
+        { label: "Restore", run: () => focusWindow(win) },
+        { label: "Minimize", run: () => win.classList.add("hidden") },
+        { label: "Close window", run: () => win.remove() }
+      ].forEach((item) => {
+        const menuBtn = document.createElement("button");
+        menuBtn.textContent = item.label;
+        menuBtn.addEventListener("click", () => {
+          item.run();
+          hideContextMenu();
+          syncRunningApps();
+          playTone(380, 0.02);
+        });
+        contextMenu.appendChild(menuBtn);
+      });
+      contextMenu.style.left = `${Math.min(event.clientX, window.innerWidth - 220)}px`;
+      contextMenu.style.top = `${Math.min(event.clientY, window.innerHeight - 160)}px`;
+      contextMenu.classList.remove("hidden");
+    });
+
     runningApps.appendChild(btn);
   });
+}
+
+function playTone(freq, dur) {
+  if (!soundEnabled) return;
+  const AudioCtx = window.AudioContext || window.webkitAudioContext;
+  if (!AudioCtx) return;
+  const ctx = new AudioCtx();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.frequency.value = freq;
+  osc.type = "sine";
+  gain.gain.value = 0.025;
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.start();
+  osc.stop(ctx.currentTime + dur);
+  osc.onended = () => ctx.close();
 }
 
 function setWallpaper(urlValue) {
@@ -572,6 +633,15 @@ brightness.addEventListener("input", () => {
 });
 
 document.querySelectorAll(".quick-tile").forEach((tile) => tile.addEventListener("click", () => tile.classList.toggle("active")));
+
+const soundTile = [...document.querySelectorAll(".quick-tile")].find((tile) => tile.textContent.trim() === "Focus mode");
+if (soundTile) {
+  soundTile.textContent = "System sound";
+  soundTile.classList.add("active");
+  soundTile.addEventListener("click", () => {
+    soundEnabled = soundTile.classList.contains("active");
+  });
+}
 
 createDesktop();
 buildStartPins();
