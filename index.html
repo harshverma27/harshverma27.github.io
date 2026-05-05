@@ -21,6 +21,14 @@
         <button id="unlock-btn" class="unlock-btn">Sign in</button>
     </section>
 
+    <section id="intro-screen" class="hidden" aria-label="Intro screen">
+        <div class="intro-card">
+            <h2>Welcome</h2>
+            <p>You are about to dive into Harsh Verma's WebOS Portfolio.</p>
+            <button id="dive-btn" class="unlock-btn">Dive In</button>
+        </div>
+    </section>
+
     <div class="wallpaper" aria-hidden="true"></div>
     <div class="wallpaper-glow"></div>
 
@@ -41,10 +49,14 @@
                 <p>Open Source + Backend + Embedded Systems</p>
             </div>
         </div>
+        <div class="start-section-title">Pinned</div>
         <div class="start-grid" id="start-pins"></div>
+        <div class="start-section-title">Recommended</div>
+        <div id="start-recommended" class="start-recommended"></div>
         <div class="start-footer">
             <a href="https://github.com/harshverma27" target="_blank" rel="noreferrer">GitHub</a>
             <a href="https://www.linkedin.com/in/harshhvermaa/" target="_blank" rel="noreferrer">LinkedIn</a>
+            <button id="power-btn" class="power-btn" aria-label="Power menu">⏻</button>
         </div>
     </section>
 
@@ -55,13 +67,13 @@
                 <img src="assets/icons/windows.svg" class="icon-svg" alt="" aria-hidden="true">
             </button>
             <button class="tb-icon pin-app" data-pin="about" aria-label="Open About">
-                <span class="tb-glyph"></span>
+                <span class="tb-glyph doc"></span>
             </button>
             <button class="tb-icon pin-app" data-pin="projects" aria-label="Open Projects">
-                <span class="tb-glyph"></span>
+                <span class="tb-glyph folder"></span>
             </button>
             <button class="tb-icon pin-app" data-pin="opensource" aria-label="Open Open Source">
-                <span class="tb-glyph"></span>
+                <span class="tb-glyph code"></span>
             </button>
             <div id="running-apps"></div>
         </div>
