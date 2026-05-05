@@ -3,52 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Harsh Verma | Terminal Portfolio</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
-    <link rel="stylesheet" href="css/terminal.css">
+    <title>Harsh Verma | Windows Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/os.css">
 </head>
-<body class="theme-dark">
-    <div id="window-bar">
-        <div class="window-buttons">
-            <span class="close"></span>
-            <span class="minimize"></span>
-            <span class="maximize"></span>
+<body>
+    <div class="wallpaper"></div>
+    <div class="wallpaper-glow"></div>
+
+    <main id="desktop" aria-label="Desktop"></main>
+
+    <section id="windows-layer" aria-label="Windows layer"></section>
+
+    <div id="context-menu" class="menu hidden" role="menu"></div>
+
+    <section id="start-menu" class="hidden" aria-label="Start menu">
+        <div class="start-search-wrap">
+            <input id="start-search" class="start-search" placeholder="Type here to search" aria-label="Search" />
         </div>
-        <div class="window-title">guest@harshos: ~</div>
-    </div>
-    <div id="terminal-container" onclick="document.getElementById('command-input').focus()">
-        <div class="banner">
-            <div class="banner-content">
-                <div class="icon-cluster left-icons">
-                    <i class="devicon-kotlin-plain colored"></i>
-                    <i class="devicon-python-plain colored"></i>
-                    <i class="devicon-cplusplus-plain colored"></i>
-                    <i class="devicon-bash-plain"></i>
-                </div>
-<pre style="margin: 0; font-family: 'Fira Code', monospace; line-height: 1.2;">
-  _   _                 _      ____   _____ 
- | | | | __ _ _ __  ___| |__  / __ \ / ____|
- | |_| |/ _` | '__|/ __| '_ \| |  | | (___  
- |  _  | (_| | |   \__ \ | | | |  | |\___ \ 
- | | |_|\__,_|_|   |___/_| |_|\____/ |____/ 
-</pre>
-                <div class="icon-cluster right-icons">
-                    <i class="devicon-android-plain colored"></i>
-                    <i class="devicon-django-plain colored"></i>
-                    <i class="devicon-firebase-plain colored"></i>
-                    <i class="devicon-mysql-plain colored"></i>
-                </div>
+        <div class="start-header">
+            <div class="avatar">HV</div>
+            <div>
+                <h2>Harsh Verma</h2>
+                <p>Open Source + Backend + Embedded Systems</p>
             </div>
-            <div style="margin-top: 15px; font-weight: 700; color: var(--text-color);">Welcome to HarshOS v1.0.0 (tty1)</div>
-            <div class="color-text" style="margin-top: 5px;">Type <span class="color-exe">'help'</span> to see available commands.</div>
-            <div class="color-text">To view my details, try executing <span class="color-exe">'./about.sh'</span>.</div>
         </div>
-        <div id="output"></div>
-        <div id="input-line">
-            <span class="prompt"><span class="prompt-user">guest@harshos</span><span class="prompt-symbol">:</span><span id="prompt-dir" class="prompt-dir">~</span><span class="prompt-symbol">$</span></span>
-            <input type="text" id="command-input" autocomplete="off" spellcheck="false" autofocus>
+        <div class="start-grid" id="start-pins"></div>
+        <div class="start-footer">
+            <a href="https://github.com/harshverma27" target="_blank" rel="noreferrer">GitHub</a>
+            <a href="https://www.linkedin.com/in/harshhvermaa/" target="_blank" rel="noreferrer">LinkedIn</a>
         </div>
-    </div>
-    <script src="js/terminal.js"></script>
+    </section>
+
+    <footer id="taskbar">
+        <div class="tb-left"></div>
+        <div class="tb-center">
+            <button id="start-btn" class="tb-icon" aria-label="Open start menu">
+                <span class="win-logo" aria-hidden="true"></span>
+            </button>
+            <div id="running-apps"></div>
+        </div>
+        <div class="tb-right">
+            <span class="tray">NET</span>
+            <span class="tray">ENG</span>
+            <button id="clock" class="clock" aria-label="Clock"></button>
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
 </body>
 </html>
