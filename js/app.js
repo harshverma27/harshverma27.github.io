@@ -24,6 +24,7 @@ const lockDate = document.getElementById("lock-date");
 let zTop = 30;
 let selectedDesktopId = null;
 let focusedWindowId = null;
+let snapMenuHideTimer = null;
 
 const docs = {
   about: { title: "About Me", body: `<div class="doc-pane"><h3>Harsh Verma</h3><p>Open-source contributor and backend-focused developer with practical experience in Android, automation, Linux systems, and embedded hardware projects.</p><h4>README.md</h4><ul><li>Builds and ships software with CI-first workflows.</li><li>Contributes to large-scale OSS projects in GNOME ecosystem.</li><li>Works across backend systems, Raspberry Pi setups, and Android clients.</li></ul><p><strong>Current focus:</strong> developer tooling, reliable test automation, and scalable system workflows.</p></div>` },
@@ -152,6 +153,7 @@ function createWindow({ id, title, content, width = 860, height = 560 }) {
   attachDrag(win, header);
   attachResizeHandles(win);
   attachWindowActions(win);
+  attachSnapMenu(win);
   win.addEventListener("mousedown", () => focusWindow(win));
   windowsLayer.appendChild(win);
   focusWindow(win);
@@ -162,7 +164,7 @@ function createWindow({ id, title, content, width = 860, height = 560 }) {
 function makeExplorerContent(sectionId) {
   const title = docs[sectionId].title;
   const links = fileSystem.desktop.map((id) => `<button class="quick-link ${id === sectionId ? "active" : ""}" data-open="${id}">${docs[id].title}</button>`).join("");
-  return `<div class="explorer-chrome"><button class="exp-btn">&#8592;</button><button class="exp-btn">&#8594;</button><button class="exp-btn">&#8593;</button><div class="address">This PC > Portfolio > ${title}</div><input class="search-mini" placeholder="Search ${title}" /></div><div class="explorer"><aside class="explorer-side"><h4>Quick access</h4>${links}</aside><section class="explorer-main"><div class="crumb">Items in ${title}</div><div class="file-grid"><button class="file-card" data-doc="${sectionId}"><div class="file-icon doc"></div><div class="file-name">README.md</div></button><button class="file-card" data-doc="resume"><div class="file-icon doc"></div><div class="file-name">Resume.pdf</div></button></div></section><aside class="explorer-details"><h4>Details</h4><p><strong>Name:</strong> ${title}</p><p><strong>Type:</strong> Portfolio folder</p><p><strong>Contains:</strong> README.md</p><p><strong>Updated:</strong> ${new Date().toLocaleDateString()}</p></aside></div>`;
+  return `<div class="explorer-chrome"><button class="exp-btn">&#8592;</button><button class="exp-btn">&#8594;</button><button class="exp-btn">&#8593;</button><div class="address">This PC > Portfolio > ${title}</div><input class="search-mini" placeholder="Search ${title}" /></div><div class="explorer"><aside class="explorer-side"><h4>Quick access</h4>${links}</aside><section class="explorer-main"><div class="crumb">Items in ${title}</div><div class="explorer-toolbar"><button class="exp-btn view-btn" data-view="grid">Tiles</button><button class="exp-btn view-btn" data-view="list">List</button><button class="exp-btn sort-btn" data-sort="name">Sort A-Z</button></div><div class="file-grid" data-view="grid"><button class="file-card" data-doc="${sectionId}" data-name="README.md"><div class="file-icon doc"></div><div class="file-name">README.md</div></button><button class="file-card" data-doc="resume" data-name="Resume.pdf"><div class="file-icon doc"></div><div class="file-name">Resume.pdf</div></button></div></section><aside class="explorer-details"><h4>Details</h4><p><strong>Name:</strong> ${title}</p><p><strong>Type:</strong> Portfolio folder</p><p><strong>Contains:</strong> README.md</p><p><strong>Updated:</strong> ${new Date().toLocaleDateString()}</p></aside></div>`;
 }
 
 function bindExplorerEvents(win) {
@@ -173,6 +175,23 @@ function bindExplorerEvents(win) {
       btn.classList.add("active");
     });
     btn.addEventListener("dblclick", () => openDocWindow(btn.dataset.doc));
+  });
+
+  win.querySelectorAll(".view-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const grid = win.querySelector(".file-grid");
+      grid.dataset.view = btn.dataset.view;
+      grid.classList.toggle("list-view", btn.dataset.view === "list");
+    });
+  });
+
+  win.querySelectorAll(".sort-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const grid = win.querySelector(".file-grid");
+      const cards = [...grid.querySelectorAll(".file-card")];
+      cards.sort((a, b) => a.dataset.name.localeCompare(b.dataset.name));
+      cards.forEach((card) => grid.appendChild(card));
+    });
   });
 }
 
@@ -191,7 +210,13 @@ function attachWindowActions(win) {
       event.stopPropagation();
       const action = btn.dataset.action;
       if (action === "close") win.remove();
-      if (action === "min") win.classList.add("hidden");
+      if (action === "min") {
+        win.classList.add("anim-minimize");
+        setTimeout(() => {
+          win.classList.add("hidden");
+          win.classList.remove("anim-minimize");
+        }, 140);
+      }
       if (action === "max") {
         const max = win.dataset.maximized === "1";
         if (!max) {
@@ -211,6 +236,68 @@ function attachWindowActions(win) {
         }
       }
       syncRunningApps();
+    });
+  });
+}
+
+function attachSnapMenu(win) {
+  const maxBtn = win.querySelector('[data-action="max"]');
+  if (!maxBtn) return;
+
+  const menu = document.createElement("div");
+  menu.className = "menu hidden";
+  menu.innerHTML = `<button data-layout="left">Snap left</button><button data-layout="right">Snap right</button><button data-layout="max">Maximize</button><button data-layout="restore">Restore</button>`;
+  document.body.appendChild(menu);
+
+  const showMenu = () => {
+    const rect = maxBtn.getBoundingClientRect();
+    menu.style.left = `${Math.max(8, rect.left - 30)}px`;
+    menu.style.top = `${rect.bottom + 6}px`;
+    menu.classList.remove("hidden");
+  };
+
+  const hideMenu = () => {
+    menu.classList.add("hidden");
+  };
+
+  maxBtn.addEventListener("mouseenter", () => {
+    clearTimeout(snapMenuHideTimer);
+    showMenu();
+  });
+
+  maxBtn.addEventListener("mouseleave", () => {
+    snapMenuHideTimer = setTimeout(hideMenu, 180);
+  });
+
+  menu.addEventListener("mouseenter", () => clearTimeout(snapMenuHideTimer));
+  menu.addEventListener("mouseleave", () => (snapMenuHideTimer = setTimeout(hideMenu, 120)));
+
+  menu.querySelectorAll("button").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const mode = btn.dataset.layout;
+      if (mode === "left") {
+        win.style.left = "4px";
+        win.style.top = "4px";
+        win.style.width = "calc(50vw - 8px)";
+        win.style.height = "calc(100vh - 52px)";
+      } else if (mode === "right") {
+        win.style.left = "calc(50vw + 4px)";
+        win.style.top = "4px";
+        win.style.width = "calc(50vw - 8px)";
+        win.style.height = "calc(100vh - 52px)";
+      } else if (mode === "max") {
+        win.style.left = "4px";
+        win.style.top = "4px";
+        win.style.width = "calc(100vw - 8px)";
+        win.style.height = "calc(100vh - 52px)";
+      } else if (mode === "restore") {
+        const prev = JSON.parse(win.dataset.prev || "{}");
+        win.style.left = prev.left || "90px";
+        win.style.top = prev.top || "54px";
+        win.style.width = prev.width || "860px";
+        win.style.height = prev.height || "560px";
+      }
+      hideMenu();
     });
   });
 }
@@ -295,7 +382,12 @@ function syncRunningApps() {
     btn.innerHTML = `<span class="tb-glyph ${glyph}"></span>`;
     btn.title = win.querySelector(".window-title")?.textContent || "Window";
     btn.addEventListener("click", () => {
-      if (win.classList.contains("hidden")) focusWindow(win);
+      if (win.classList.contains("hidden")) {
+        win.classList.remove("hidden");
+        win.classList.add("anim-restore");
+        setTimeout(() => win.classList.remove("anim-restore"), 150);
+        focusWindow(win);
+      }
       else if (win.id === focusedWindowId) win.classList.add("hidden");
       else focusWindow(win);
       syncRunningApps();
@@ -434,6 +526,11 @@ function runBootSequence() {
 document.addEventListener("click", (event) => {
   if (!event.target.closest("#start-menu") && !event.target.closest("#start-btn")) closeStartMenu();
   if (!event.target.closest("#context-menu")) hideContextMenu();
+  if (!event.target.closest('[data-action="max"]') && !event.target.closest('.menu')) {
+    document.querySelectorAll(".menu").forEach((menu) => {
+      if (menu !== contextMenu) menu.classList.add("hidden");
+    });
+  }
   if (!event.target.closest("#quick-panel") && !event.target.closest("#quick-btn") && !event.target.closest("#net-btn") && !event.target.closest("#calendar-panel") && !event.target.closest("#clock")) hideFlyouts();
   if (!event.target.closest(".desktop-icon")) {
     selectedDesktopId = null;
