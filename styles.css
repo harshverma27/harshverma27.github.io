@@ -66,6 +66,11 @@ body {
   flex-wrap: wrap;
 }
 
+.main-nav a,
+.brand {
+  flex-shrink: 0;
+}
+
 .main-nav a {
   color: var(--muted);
   text-decoration: none;
@@ -265,13 +270,43 @@ h2 {
 }
 
 @media (max-width: 840px) {
+  .nav-wrap {
+    gap: 0.75rem;
+  }
+
+  .main-nav {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    white-space: nowrap;
+    gap: 0.7rem;
+    scrollbar-width: none;
+  }
+
+  .main-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .main-nav a {
+    font-size: 0.92rem;
+  }
+
   .hero {
     grid-template-columns: 1fr;
   }
 
+  .hero-content {
+    order: 1;
+  }
+
   .hero-image-wrap {
+    order: 2;
     justify-content: flex-start;
     margin-top: 0.4rem;
+  }
+
+  .hero-actions {
+    order: 3;
+    margin-top: 1rem;
   }
 
   .hero-image {
@@ -280,9 +315,5 @@ h2 {
 
   .grid {
     grid-template-columns: 1fr;
-  }
-
-  .main-nav {
-    gap: 0.8rem;
   }
 }
