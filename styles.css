@@ -81,6 +81,31 @@ body {
   animation: rise 650ms ease both;
 }
 
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(220px, 0.9fr);
+  gap: 1.2rem;
+  align-items: center;
+}
+
+.hero-content {
+  min-width: 0;
+}
+
+.hero-image-wrap {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.hero-image {
+  width: min(320px, 100%);
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid #e6eadf;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.06);
+}
+
 .kicker {
   margin: 0;
   color: var(--accent);
@@ -240,6 +265,19 @@ h2 {
 }
 
 @media (max-width: 840px) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-image-wrap {
+    justify-content: flex-start;
+    margin-top: 0.4rem;
+  }
+
+  .hero-image {
+    width: min(240px, 75%);
+  }
+
   .grid {
     grid-template-columns: 1fr;
   }
