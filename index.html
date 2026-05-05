@@ -10,7 +10,18 @@
     <link rel="stylesheet" href="css/os.css">
 </head>
 <body>
-    <div class="wallpaper"></div>
+    <section id="boot-screen" aria-label="Boot screen">
+        <div class="boot-logo"></div>
+        <div class="boot-loader" aria-hidden="true"></div>
+    </section>
+
+    <section id="lock-screen" class="hidden" aria-label="Lock screen">
+        <div class="lock-time" id="lock-time"></div>
+        <div class="lock-date" id="lock-date"></div>
+        <button id="unlock-btn" class="unlock-btn">Sign in</button>
+    </section>
+
+    <div class="wallpaper" aria-hidden="true"></div>
     <div class="wallpaper-glow"></div>
 
     <main id="desktop" aria-label="Desktop"></main>
@@ -43,14 +54,42 @@
             <button id="start-btn" class="tb-icon" aria-label="Open start menu">
                 <span class="win-logo" aria-hidden="true"></span>
             </button>
+            <button class="tb-icon pin-app" data-pin="about" aria-label="Open About">
+                <span class="tb-glyph">AM</span>
+            </button>
+            <button class="tb-icon pin-app" data-pin="projects" aria-label="Open Projects">
+                <span class="tb-glyph">PJ</span>
+            </button>
+            <button class="tb-icon pin-app" data-pin="opensource" aria-label="Open Open Source">
+                <span class="tb-glyph">OS</span>
+            </button>
             <div id="running-apps"></div>
         </div>
         <div class="tb-right">
-            <span class="tray">NET</span>
-            <span class="tray">ENG</span>
+            <button id="quick-btn" class="tray-btn" aria-label="Quick settings">⚙</button>
+            <button id="net-btn" class="tray-btn" aria-label="Network">📶</button>
             <button id="clock" class="clock" aria-label="Clock"></button>
         </div>
     </footer>
+
+    <section id="quick-panel" class="flyout hidden" aria-label="Quick settings panel">
+        <h3>Quick Settings</h3>
+        <div class="quick-grid">
+            <button class="quick-tile">Wi-Fi</button>
+            <button class="quick-tile">Bluetooth</button>
+            <button class="quick-tile">Night light</button>
+            <button class="quick-tile">Focus mode</button>
+        </div>
+        <div class="quick-slider-wrap">
+            <label for="brightness">Brightness</label>
+            <input id="brightness" type="range" min="40" max="130" value="100">
+        </div>
+    </section>
+
+    <section id="calendar-panel" class="flyout hidden" aria-label="Calendar panel">
+        <h3 id="calendar-month"></h3>
+        <div id="calendar-grid" class="calendar-grid"></div>
+    </section>
 
     <script src="js/app.js"></script>
 </body>
