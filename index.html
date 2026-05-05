@@ -1,108 +1,125 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Harsh Verma | Windows Portfolio</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/os.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Harsh Verma - open-source contributor and backend-focused developer.">
+  <title>Harsh Verma</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <section id="boot-screen" aria-label="Boot screen">
-        <div class="boot-logo"></div>
-        <div class="boot-loader" aria-hidden="true"></div>
+  <header class="site-header">
+    <div class="wrap nav-wrap">
+      <a class="brand" href="#top">HV</a>
+      <nav class="main-nav">
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#skills">Skills</a>
+        <a href="https://heyharsh.me/blogs" target="_blank" rel="noreferrer">Blogs</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero wrap">
+      <p class="kicker">Harsh Verma (he/him)</p>
+      <h1>Backend-focused developer and open-source contributor building reliable systems.</h1>
+      <p class="intro">
+        I work across automation, CI/CD, Android, and embedded Linux. I enjoy shipping practical software
+        that solves real problems, from GNOME testing infrastructure to Raspberry Pi systems.
+      </p>
+      <div class="hero-actions">
+        <a class="btn solid" href="CV(HarshVerma).pdf" target="_blank" rel="noreferrer">View Resume</a>
+        <a class="btn" href="https://github.com/harshverma27" target="_blank" rel="noreferrer">GitHub</a>
+        <a class="btn" href="https://www.linkedin.com/in/harshhvermaa/" target="_blank" rel="noreferrer">LinkedIn</a>
+        <a class="btn" href="https://heyharsh.me/terminal-portfolio" target="_blank" rel="noreferrer">Terminal Style Portfolio</a>
+      </div>
     </section>
 
-    <section id="lock-screen" class="hidden" aria-label="Lock screen">
-        <div class="lock-time" id="lock-time"></div>
-        <div class="lock-date" id="lock-date"></div>
-        <button id="unlock-btn" class="unlock-btn">Sign in</button>
+    <section id="projects" class="wrap section">
+      <h2>Selected Projects</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Real-Time Video Streaming System</h3>
+          <p>Raspberry Pi Zero CCTV with motion-triggered recording and local network streaming through FFmpeg.</p>
+          <a href="https://github.com/harshverma27/Raspberry-Pi-Based-CCTV" target="_blank" rel="noreferrer">View Project</a>
+        </article>
+        <article class="card">
+          <h3>Network-Level Ad Blocking System</h3>
+          <p>Custom DNS filtering on Raspberry Pi to block unwanted domains for all devices in the local network.</p>
+          <a href="https://github.com/harshverma27/Raspberry-Pi-Based-AdBlocker" target="_blank" rel="noreferrer">View Project</a>
+        </article>
+        <article class="card">
+          <h3>AyurGyanam</h3>
+          <p>Android app with Django backend for herbal-health content, symptom workflows, and user bookmarks.</p>
+          <a href="https://github.com/harshverma27/AyurvedaProject" target="_blank" rel="noreferrer">View Project</a>
+        </article>
+        <article class="card">
+          <h3>Kissan-Connect</h3>
+          <p>Farmer-to-consumer Android marketplace built with Jetpack Compose, Django, and Firebase services.</p>
+          <a href="https://github.com/harshverma27/Kissan-Connect" target="_blank" rel="noreferrer">View Project</a>
+        </article>
+      </div>
     </section>
 
-    <section id="intro-screen" class="hidden" aria-label="Intro screen">
-        <div class="intro-card">
-            <h2>Welcome</h2>
-            <p>You are about to dive into Harsh Verma's WebOS Portfolio.</p>
-            <button id="dive-btn" class="unlock-btn">Dive In</button>
-        </div>
+    <section id="experience" class="wrap section">
+      <h2>Experience</h2>
+      <div class="timeline">
+        <article>
+          <h3>GNOME (Active Contributor)</h3>
+          <p class="meta">Feb 2026 - Present</p>
+          <p>Built a unit testing framework for core GIMP libraries spanning 65+ files and integrated it into GitLab CI/CD.</p>
+          <p>Identified and fixed a duplicate pipeline issue in GitLab actions, reducing CI resource usage by 50%.</p>
+        </article>
+        <article>
+          <h3>Society for Promotions of Electronics Culture (NITH)</h3>
+          <p class="meta">Volunteer -> Executive, Sep 2024 - Present</p>
+          <p>Helped organize and operate major hackathons and workshops for hundreds of students across colleges.</p>
+        </article>
+      </div>
     </section>
 
-    <div class="wallpaper" aria-hidden="true"></div>
-    <div class="wallpaper-glow"></div>
-
-    <main id="desktop" aria-label="Desktop"></main>
-
-    <section id="windows-layer" aria-label="Windows layer"></section>
-
-    <div id="context-menu" class="menu hidden" role="menu"></div>
-
-    <section id="start-menu" class="hidden" aria-label="Start menu">
-        <div class="start-search-wrap">
-            <input id="start-search" class="start-search" placeholder="Type here to search" aria-label="Search" />
-        </div>
-        <div class="start-header">
-            <div class="avatar">HV</div>
-            <div>
-                <h2>Harsh Verma</h2>
-                <p>Open Source + Backend + Embedded Systems</p>
-            </div>
-        </div>
-        <div class="start-section-title">Pinned</div>
-        <div class="start-grid" id="start-pins"></div>
-        <div class="start-section-title">Recommended</div>
-        <div id="start-recommended" class="start-recommended"></div>
-        <div class="start-footer">
-            <a href="https://github.com/harshverma27" target="_blank" rel="noreferrer">GitHub</a>
-            <a href="https://www.linkedin.com/in/harshhvermaa/" target="_blank" rel="noreferrer">LinkedIn</a>
-            <button id="power-btn" class="power-btn" aria-label="Power menu">⏻</button>
-        </div>
+    <section id="skills" class="wrap section">
+      <h2>Skills</h2>
+      <ul class="tags">
+        <li>Python</li>
+        <li>Kotlin</li>
+        <li>C / C++</li>
+        <li>Bash</li>
+        <li>SQL</li>
+        <li>Django</li>
+        <li>Jetpack Compose</li>
+        <li>Firebase</li>
+        <li>GitHub Actions</li>
+        <li>GitLab CI/CD</li>
+        <li>Raspberry Pi</li>
+        <li>Embedded Linux</li>
+      </ul>
     </section>
 
-    <footer id="taskbar">
-        <div class="tb-left"></div>
-        <div class="tb-center">
-            <button id="start-btn" class="tb-icon" aria-label="Open start menu">
-                <img src="assets/icons/windows.svg" class="icon-svg" alt="" aria-hidden="true">
-            </button>
-            <button class="tb-icon pin-app" data-pin="about" aria-label="Open About">
-                <span class="tb-glyph doc"></span>
-            </button>
-            <button class="tb-icon pin-app" data-pin="projects" aria-label="Open Projects">
-                <span class="tb-glyph folder"></span>
-            </button>
-            <button class="tb-icon pin-app" data-pin="opensource" aria-label="Open Open Source">
-                <span class="tb-glyph code"></span>
-            </button>
-            <div id="running-apps"></div>
-        </div>
-        <div class="tb-right">
-            <button id="quick-btn" class="tray-btn" aria-label="Quick settings">⚙</button>
-            <button id="net-btn" class="tray-btn" aria-label="Network">📶</button>
-            <button id="clock" class="clock" aria-label="Clock"></button>
-        </div>
-    </footer>
-
-    <section id="quick-panel" class="flyout hidden" aria-label="Quick settings panel">
-        <h3>Quick Settings</h3>
-        <div class="quick-grid">
-            <button class="quick-tile">Wi-Fi</button>
-            <button class="quick-tile">Bluetooth</button>
-            <button class="quick-tile">Night light</button>
-            <button class="quick-tile">Focus mode</button>
-        </div>
-        <div class="quick-slider-wrap">
-            <label for="brightness">Brightness</label>
-            <input id="brightness" type="range" min="40" max="130" value="100">
-        </div>
+    <section id="contact" class="wrap section contact">
+      <h2>Contact</h2>
+      <p>Open to collaboration, open-source work, and impactful software projects.</p>
+      <p>
+        <a href="mailto:harshhvermaa@icloud.com">harshhvermaa@icloud.com</a>
+        <span> / </span>
+        <a href="mailto:24bee048@nith.ac.in">24bee048@nith.ac.in</a>
+      </p>
     </section>
+  </main>
 
-    <section id="calendar-panel" class="flyout hidden" aria-label="Calendar panel">
-        <h3 id="calendar-month"></h3>
-        <div id="calendar-grid" class="calendar-grid"></div>
-    </section>
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>&copy; <span id="year"></span> Harsh Verma</p>
+    </div>
+  </footer>
 
-    <script src="js/app.js"></script>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
