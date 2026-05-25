@@ -90,7 +90,7 @@ body {
   display: grid;
   grid-template-columns: minmax(0, 1.5fr) minmax(220px, 0.9fr);
   gap: 1.2rem;
-  align-items: center;
+  align-items: start;
 }
 
 .hero-content {
@@ -133,8 +133,11 @@ h1 {
 .hero-actions {
   margin-top: 1.6rem;
   display: flex;
-  gap: 0.7rem;
-  flex-wrap: wrap;
+  gap: 1rem;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  grid-column: 1 / -1;
+  justify-content: center;
 }
 
 .btn {
@@ -145,6 +148,15 @@ h1 {
   border-radius: 999px;
   font-weight: 600;
   background: var(--surface);
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 200ms ease, border-color 200ms ease, color 200ms ease;
+}
+
+.btn:hover {
+  background: var(--text);
+  border-color: var(--text);
+  color: #fff;
 }
 
 .btn.solid {
