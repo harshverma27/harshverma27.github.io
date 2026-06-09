@@ -119,7 +119,7 @@ export default function Hero() {
 
           <div className="inline-flex gap-4 flex-wrap justify-center">
             <CTAButton id="see-works-btn" href="#works" variant="solid" label="See Works" />
-            <CTAButton id="reach-out-btn" href="mailto:harshhvermaa@icloud.com" variant="outline" label="Reach out..." />
+            <CTAButton id="reach-out-btn" href="mailto:harshkardam246+portfolio@gmail.com" variant="outline" label="Reach out..." />
           </div>
         </div>
 

@@ -86,7 +86,7 @@ export default function Contact() {
             </motion.h2>
             <motion.a
               id="email-cta-btn"
-              href="mailto:harshhvermaa@icloud.com"
+              href="mailto:harshkardam246+portfolio@gmail.com"
               className="group relative rounded-full px-8 py-4 text-sm font-medium text-text-primary border border-stroke hover:border-transparent transition-all duration-300"
               whileHover={{ scale: 1.03 }}
               initial={{ opacity: 0, y: 20 }}
@@ -103,7 +103,7 @@ export default function Contact() {
               />
               <span className="absolute inset-0 bg-bg/80 rounded-full opacity-0 group-hover:opacity-100" />
               <span className="relative z-10 flex items-center gap-2">
-                harshhvermaa@icloud.com
+                harshkardam246+portfolio@gmail.com
                 <span className="opacity-50 group-hover:opacity-100 transition-opacity">↗</span>
               </span>
             </motion.a>
