@@ -112,7 +112,7 @@ function SayHiButton() {
     <div className="relative">
       <motion.a
         id="say-hi-btn"
-        href="mailto:harshhvermaa@icloud.com"
+        href="mailto:harshkardam246+portfolio@gmail.com"
         whileHover={{ scale: 1.02 }}
         transition={{ type: 'spring', stiffness: 400, damping: 20 }}
         className="
