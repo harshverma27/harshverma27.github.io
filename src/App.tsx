@@ -25,7 +25,7 @@ export default function App() {
           <Navbar />
           <main>
             <Hero />
-            {/* Everything below slides over the fixed hero */}
+            {/* Content slides over the fixed animated background. */}
             <div className="relative z-10">
               <Works />
               <Journal />

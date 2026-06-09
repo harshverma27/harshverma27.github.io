@@ -69,7 +69,7 @@ const cardVariants = {
 
 export default function Works() {
   return (
-    <section id="works" className="bg-bg py-12 md:py-24">
+    <section id="works" className="relative py-12 md:py-24 section-scrim">
       <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
         {/* Header */}
         <motion.div
@@ -97,7 +97,7 @@ export default function Works() {
             href="https://github.com/harshverma27"
             target="_blank"
             rel="noreferrer"
-            className="hidden md:inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm text-muted hover:text-text-primary border border-stroke hover:border-transparent transition-all duration-300 group relative overflow-hidden"
+            className="hidden md:inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm text-muted hover:text-text-primary border border-stroke/80 bg-bg/25 backdrop-blur-sm hover:border-transparent transition-all duration-300 group relative overflow-hidden"
             whileHover={{ scale: 1.03 }}
           >
             <span
@@ -109,7 +109,7 @@ export default function Works() {
               }}
             />
             <span
-              className="absolute inset-0 bg-bg rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              className="absolute inset-0 bg-bg/85 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
             />
             <span className="relative z-10">View all work</span>
             <span className="relative z-10 group-hover:translate-x-0.5 transition-transform">→</span>
@@ -163,7 +163,7 @@ function ProjectCard({ project }: { project: Project }) {
       rel="noreferrer"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="group relative block bg-surface border border-stroke rounded-3xl overflow-hidden cursor-pointer"
+      className="group relative block bg-surface/70 border border-stroke/80 rounded-3xl overflow-hidden cursor-pointer shadow-2xl shadow-black/20 backdrop-blur-sm"
       style={{ aspectRatio: '4 / 3' }}
       whileHover={{ y: -4 }}
       transition={{ type: 'spring', stiffness: 300, damping: 25 }}
@@ -204,7 +204,7 @@ function ProjectCard({ project }: { project: Project }) {
 
       {/* Hover overlay */}
       <motion.div
-        className="absolute inset-0 bg-bg/75 backdrop-blur-sm flex items-center justify-center z-20"
+        className="absolute inset-0 bg-bg/70 backdrop-blur-md flex items-center justify-center z-20"
         initial={{ opacity: 0 }}
         animate={{ opacity: hovered ? 1 : 0 }}
         transition={{ duration: 0.25 }}
