@@ -20,7 +20,7 @@ export default function Navbar() {
     } else if (link === 'Work') {
       document.getElementById('works')?.scrollIntoView({ behavior: 'smooth' })
     } else if (link === 'Resume') {
-      window.open('/assets/CV(HarshVerma).pdf', '_blank')
+      window.open('/public/resume.pdf', '_blank')
     }
   }
 
