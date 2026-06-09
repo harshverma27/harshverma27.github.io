@@ -75,7 +75,7 @@ export default function Explorations() {
     <section
       ref={sectionRef}
       id="explorations"
-      className="relative bg-bg"
+      className="relative section-scrim"
       style={{ minHeight: '300vh' }}
     >
       {/* Pinned center content */}
@@ -106,7 +106,7 @@ export default function Explorations() {
             href="https://github.com/harshverma27"
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm text-muted border border-stroke hover:text-text-primary transition-all duration-300 group relative"
+            className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm text-muted border border-stroke/80 bg-bg/25 backdrop-blur-sm hover:text-text-primary transition-all duration-300 group relative"
             whileHover={{ scale: 1.03 }}
           >
             <span
@@ -116,7 +116,7 @@ export default function Explorations() {
                 inset: '-2px',
               }}
             />
-            <span className="absolute inset-0 bg-bg rounded-full opacity-0 group-hover:opacity-100" />
+            <span className="absolute inset-0 bg-bg/85 rounded-full opacity-0 group-hover:opacity-100" />
             <span className="relative z-10">View GitHub ↗</span>
           </motion.a>
         </motion.div>
