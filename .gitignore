@@ -1,3 +1,5 @@
 resumes/
 main(2).tex
 Old-Files/
+node_modules/
+dist/
