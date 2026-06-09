@@ -20,7 +20,7 @@ const POSTS = [
     title: "What's with Oracle and other companies laying off interns?",
     excerpt: "Every now and then I am seeing a post where an Oracle intern got laid off, and was denied the job offer. I still have around 2 years till I enter the job world, but I'm already terrified. The interns getting laid off aren't normal students — >8.5 CGPA, 1000+ DSA problems, previous GSoC experience.",
     date: 'Jun 4, 2026',
-    likes: 42,
+    likes: 420,
     comments: 5,
     accent: '#F59E0B',
     emoji: '💭',
