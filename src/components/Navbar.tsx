@@ -94,11 +94,14 @@ function LogoButton() {
         transition: 'background 0.4s ease',
       }}
       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-    >
-      <div className="w-full h-full bg-bg rounded-full flex items-center justify-center">
-        <span className="font-display italic text-[13px] text-text-primary leading-none select-none">
-          HV
-        </span>
+      >
+      <div className="w-full h-full bg-bg rounded-full overflow-hidden">
+        <img
+          src="/avatar.png"
+          alt="Avatar"
+          className="w-full h-full object-cover rounded-full"
+          draggable={false}
+        />
       </div>
     </motion.button>
   )
