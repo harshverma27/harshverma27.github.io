@@ -20,7 +20,7 @@ export default function Navbar() {
     } else if (link === 'Work') {
       document.getElementById('works')?.scrollIntoView({ behavior: 'smooth' })
     } else if (link === 'Resume') {
-      window.open('/public/resume.pdf', '_blank')
+      window.open('/resume.pdf', '_blank')
     }
   }
 
