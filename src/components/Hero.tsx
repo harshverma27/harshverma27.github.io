@@ -63,29 +63,28 @@ export default function Hero() {
   return (
     <>
       {/*
-        The hero is FIXED — it stays pinned behind all other sections as you scroll.
-        A spacer div below it pushes the rest of the page content down.
+        Keep only the animated background fixed. The hero copy scrolls away
+        normally, so later sections can reveal the same motion behind them.
       */}
+      <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none" aria-hidden="true">
+        <video
+          ref={videoRef}
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute top-1/2 left-1/2 min-w-full min-h-full object-cover -translate-x-1/2 -translate-y-1/2"
+        />
+        <div className="absolute inset-0 bg-black/55" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(10,10,10,0.18)_42%,rgba(10,10,10,0.78)_100%)]" />
+        <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-bg/85 to-transparent" />
+        <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-bg/50 to-transparent" />
+      </div>
+
       <section
         id="home"
-        className="fixed top-0 left-0 right-0 w-full h-screen min-h-[600px] flex items-center justify-center overflow-hidden"
-        style={{ zIndex: 0 }}
+        className="relative z-10 w-full h-screen min-h-[600px] flex items-center justify-center overflow-hidden"
       >
-        {/* Background Video */}
-        <div className="absolute inset-0 overflow-hidden">
-          <video
-            ref={videoRef}
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="absolute top-1/2 left-1/2 min-w-full min-h-full object-cover -translate-x-1/2 -translate-y-1/2"
-          />
-          <div className="absolute inset-0 bg-black/40" />
-          <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-bg to-transparent" />
-          <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-bg/50 to-transparent" />
-        </div>
-
         {/* Content */}
         <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-5xl mx-auto">
           <p className="blur-in text-xs text-muted uppercase tracking-[0.3em] mb-8">
@@ -132,9 +131,6 @@ export default function Hero() {
           </div>
         </div>
       </section>
-
-      {/* Spacer — exactly one viewport tall so the first section starts below the hero */}
-      <div style={{ height: '100vh' }} aria-hidden="true" />
     </>
   )
 }

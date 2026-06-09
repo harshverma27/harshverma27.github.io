@@ -39,7 +39,7 @@ const itemVariants = {
 
 export default function Journal() {
   return (
-    <section id="journal" className="bg-bg py-16 md:py-24">
+    <section id="journal" className="relative py-16 md:py-24 section-scrim">
       <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
         {/* Header */}
         <motion.div
@@ -67,7 +67,7 @@ export default function Journal() {
             href="https://www.linkedin.com/in/harshhvermaa/"
             target="_blank"
             rel="noreferrer"
-            className="hidden md:inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm text-muted hover:text-text-primary border border-stroke hover:border-transparent transition-all duration-300 group relative"
+            className="hidden md:inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm text-muted hover:text-text-primary border border-stroke/80 bg-bg/25 backdrop-blur-sm hover:border-transparent transition-all duration-300 group relative"
             whileHover={{ scale: 1.03 }}
           >
             <span
@@ -77,7 +77,7 @@ export default function Journal() {
                 inset: '-2px',
               }}
             />
-            <span className="absolute inset-0 bg-bg rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <span className="absolute inset-0 bg-bg/85 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             <span className="relative z-10">View LinkedIn</span>
             <span className="relative z-10 group-hover:translate-x-0.5 transition-transform">→</span>
           </motion.a>
@@ -122,7 +122,7 @@ function PostCard({ post }: { post: Post }) {
       href={post.href}
       target="_blank"
       rel="noreferrer"
-      className="group flex flex-col p-6 md:p-7 bg-surface border border-stroke rounded-3xl cursor-pointer hover:border-white/10 transition-all duration-300"
+      className="group flex flex-col p-6 md:p-7 bg-surface/72 border border-stroke/80 rounded-3xl cursor-pointer hover:border-white/10 transition-all duration-300 shadow-2xl shadow-black/20 backdrop-blur-md"
       whileHover={{ y: -4 }}
       transition={{ type: 'spring', stiffness: 300, damping: 25 }}
     >

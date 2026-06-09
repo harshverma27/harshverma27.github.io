@@ -45,7 +45,7 @@ export default function Contact() {
   }, [])
 
   return (
-    <footer id="contact" className="bg-bg pt-16 md:pt-20 pb-8 md:pb-12 overflow-hidden">
+    <footer id="contact" className="relative pt-16 md:pt-20 pb-8 md:pb-12 overflow-hidden section-scrim">
       {/* Background video container */}
       <div className="relative rounded-3xl overflow-hidden mx-6 md:mx-10 lg:mx-16 mb-16 md:mb-24">
         <div className="relative h-64 md:h-80 overflow-hidden">
@@ -112,7 +112,7 @@ export default function Contact() {
       </div>
 
       {/* Marquee */}
-      <div className="relative overflow-hidden mb-16 md:mb-20 py-4 border-t border-b border-stroke">
+      <div className="relative overflow-hidden mb-16 md:mb-20 py-4 border-t border-b border-stroke bg-bg/20 backdrop-blur-sm">
         <div
           ref={marqueeRef}
           className="whitespace-nowrap inline-flex"
@@ -141,7 +141,7 @@ export default function Contact() {
                 href={link.href}
                 target="_blank"
                 rel="noreferrer"
-                className="text-sm text-muted hover:text-text-primary transition-colors duration-200 px-3 py-1.5 rounded-full hover:bg-surface"
+                className="text-sm text-muted hover:text-text-primary transition-colors duration-200 px-3 py-1.5 rounded-full hover:bg-surface/70"
                 whileHover={{ y: -1 }}
               >
                 {link.label}

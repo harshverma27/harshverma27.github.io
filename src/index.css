@@ -75,6 +75,23 @@
   .gradient-border-ring:hover::before {
     opacity: 1;
   }
+
+  .section-scrim {
+    isolation: isolate;
+  }
+
+  .section-scrim::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      linear-gradient(180deg, hsl(var(--bg) / 0.42) 0%, hsl(var(--bg) / 0.22) 45%, hsl(var(--bg) / 0.46) 100%),
+      radial-gradient(900px 520px at 15% 10%, rgba(137, 170, 204, 0.12), transparent 65%),
+      radial-gradient(820px 520px at 85% 65%, rgba(78, 133, 191, 0.10), transparent 70%);
+    backdrop-filter: blur(2px);
+  }
 }
 
 @layer utilities {
