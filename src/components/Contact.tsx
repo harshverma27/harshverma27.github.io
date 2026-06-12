@@ -97,7 +97,7 @@ export default function Contact() {
               <span
                 className="absolute rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                 style={{
-                  background: 'linear-gradient(90deg, #89AACC 0%, #4E85BF 100%)',
+                  background: 'linear-gradient(90deg, #A8E05F 0%, #34C47C 100%)',
                   inset: '-2px',
                 }}
               />
