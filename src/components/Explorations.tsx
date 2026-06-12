@@ -6,18 +6,18 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 
 const SKILLS = [
-  { label: 'GitHub Actions', category: 'Automation', color: '#89AACC', bg: '/skills/automation.png' },
-  { label: 'GitLab CI/CD', category: 'Automation', color: '#4E85BF', bg: '/skills/automation.png' },
-  { label: 'Kotlin', category: 'Android', color: '#6B9FD4', bg: '/skills/android.png' },
-  { label: 'Jetpack Compose', category: 'Android', color: '#89AACC', bg: '/skills/android.png' },
-  { label: 'Raspberry Pi', category: 'Embedded', color: '#4E85BF', bg: '/skills/embedded.png' },
-  { label: 'PCB Design', category: 'Hardware', color: '#6B9FD4', bg: '/skills/embedded.png' },
-  { label: 'Django', category: 'Backend', color: '#89AACC', bg: '/skills/backend.png' },
-  { label: 'Firebase', category: 'Backend', color: '#4E85BF', bg: '/skills/backend.png' },
-  { label: 'Python', category: 'Programming', color: '#6B9FD4', bg: '/skills/automation.png' },
-  { label: 'FFmpeg', category: 'Systems', color: '#89AACC', bg: '/skills/embedded.png' },
-  { label: 'Linux', category: 'Systems', color: '#4E85BF', bg: '/skills/embedded.png' },
-  { label: 'GTK+', category: 'Desktop', color: '#6B9FD4', bg: '/skills/backend.png' },
+  { label: 'GitHub Actions', category: 'Automation', color: '#A8E05F', bg: '/skills/automation.png' },
+  { label: 'GitLab CI/CD', category: 'Automation', color: '#34C47C', bg: '/skills/automation.png' },
+  { label: 'Kotlin', category: 'Android', color: '#6FE6B0', bg: '/skills/android.png' },
+  { label: 'Jetpack Compose', category: 'Android', color: '#A8E05F', bg: '/skills/android.png' },
+  { label: 'Raspberry Pi', category: 'Embedded', color: '#34C47C', bg: '/skills/embedded.png' },
+  { label: 'PCB Design', category: 'Hardware', color: '#6FE6B0', bg: '/skills/embedded.png' },
+  { label: 'Django', category: 'Backend', color: '#A8E05F', bg: '/skills/backend.png' },
+  { label: 'Firebase', category: 'Backend', color: '#34C47C', bg: '/skills/backend.png' },
+  { label: 'Python', category: 'Programming', color: '#6FE6B0', bg: '/skills/automation.png' },
+  { label: 'FFmpeg', category: 'Systems', color: '#A8E05F', bg: '/skills/embedded.png' },
+  { label: 'Linux', category: 'Systems', color: '#34C47C', bg: '/skills/embedded.png' },
+  { label: 'GTK+', category: 'Desktop', color: '#6FE6B0', bg: '/skills/backend.png' },
 ]
 
 const COL1 = SKILLS.slice(0, 6)
@@ -112,7 +112,7 @@ export default function Explorations() {
             <span
               className="absolute rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
               style={{
-                background: 'linear-gradient(90deg, #89AACC 0%, #4E85BF 100%)',
+                background: 'linear-gradient(90deg, #A8E05F 0%, #34C47C 100%)',
                 inset: '-2px',
               }}
             />
