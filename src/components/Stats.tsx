@@ -7,21 +7,21 @@ const STATS = [
     value: '65+',
     label: 'Files Covered',
     sub: 'GIMP test framework',
-    accent: '#89AACC',
+    accent: '#A8E05F',
   },
   {
     id: 'stat-hackathons',
     value: '3',
     label: 'Hackathons',
     sub: 'At NIT Hamirpur',
-    accent: '#4E85BF',
+    accent: '#34C47C',
   },
   {
     id: 'stat-students',
     value: '2500+',
     label: 'Students Reached',
     sub: 'Via Electrothon events',
-    accent: '#6B9FD4',
+    accent: '#6FE6B0',
   },
 ]
 

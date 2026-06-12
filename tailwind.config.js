@@ -7,8 +7,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        body: ['Inter', 'sans-serif'],
+        body: ['Hanken Grotesk', 'sans-serif'],
         display: ['Instrument Serif', 'serif'],
+        mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
       },
       colors: {
         bg: "hsl(var(--bg))",
@@ -17,6 +18,9 @@ export default {
         muted: "hsl(var(--muted))",
         stroke: "hsl(var(--stroke))",
         accent: "hsl(var(--accent))",
+        "accent-1": "hsl(var(--accent-1) / <alpha-value>)",
+        "accent-2": "hsl(var(--accent-2) / <alpha-value>)",
+        "accent-3": "hsl(var(--accent-3) / <alpha-value>)",
       },
       keyframes: {
         'scroll-down': {
@@ -44,6 +48,18 @@ export default {
           '0%, 100%': { opacity: '1' },
           '50%': { opacity: '0.3' },
         },
+        'caret-blink': {
+          '0%, 49%': { opacity: '1' },
+          '50%, 100%': { opacity: '0' },
+        },
+        'led-blink': {
+          '0%, 49%': { opacity: '1', boxShadow: '0 0 10px 1px hsl(var(--accent-1) / 0.9)' },
+          '50%, 100%': { opacity: '0.25', boxShadow: '0 0 0 0 transparent' },
+        },
+        'build-sweep': {
+          '0%': { transform: 'translateX(-100%)' },
+          '100%': { transform: 'translateX(220%)' },
+        },
       },
       animation: {
         'scroll-down': 'scroll-down 1.5s ease-in-out infinite',
@@ -52,6 +68,9 @@ export default {
         'marquee': 'marquee 40s linear infinite',
         'float': 'float 4s ease-in-out infinite',
         'pulse-dot': 'pulse-dot 2s ease-in-out infinite',
+        'caret-blink': 'caret-blink 1.1s steps(1) infinite',
+        'led-blink': 'led-blink 2s steps(1) infinite',
+        'build-sweep': 'build-sweep 2.4s ease-in-out infinite',
       },
     },
   },

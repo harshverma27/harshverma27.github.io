@@ -1,14 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import Hls from 'hls.js'
 import gsap from 'gsap'
 
 const HLS_URL = 'https://stream.mux.com/Aa02T7oM1wH5Mk5EEVDYhbZ1ChcdhRsS2m1NYyx4Ua1g.m3u8'
-const ROLES = ['Developer', 'Builder', 'Contributor', 'Engineer']
 
 export default function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null)
-  const [roleIndex, setRoleIndex] = useState(0)
 
   // HLS video setup
   useEffect(() => {
@@ -23,14 +21,6 @@ export default function Hero() {
     } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
       video.src = HLS_URL
     }
-  }, [])
-
-  // Role cycling
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setRoleIndex(prev => (prev + 1) % ROLES.length)
-    }, 2000)
-    return () => clearInterval(interval)
   }, [])
 
   // GSAP entrance animation
@@ -75,57 +65,54 @@ export default function Hero() {
           playsInline
           className="absolute top-1/2 left-1/2 min-w-full min-h-full object-cover -translate-x-1/2 -translate-y-1/2"
         />
-        <div className="absolute inset-0 bg-black/55" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(10,10,10,0.18)_42%,rgba(10,10,10,0.78)_100%)]" />
-        <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-bg/85 to-transparent" />
+        <div className="absolute inset-0 bg-black/60" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(8,12,10,0.18)_42%,rgba(8,12,10,0.82)_100%)]" />
+        <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-bg/90 to-transparent" />
         <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-bg/50 to-transparent" />
       </div>
 
       <section
         id="home"
-        className="relative z-10 w-full h-screen min-h-[600px] flex items-center justify-center overflow-hidden"
+        className="relative z-10 w-full h-screen min-h-[640px] flex items-center justify-center overflow-hidden"
       >
         {/* Content */}
         <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-5xl mx-auto">
-          <p className="blur-in text-xs text-muted uppercase tracking-[0.3em] mb-8">
-            B.TECH '28 · NIT HAMIRPUR
+          <p className="blur-in font-mono text-[0.7rem] sm:text-xs text-muted uppercase tracking-[0.32em] mb-8">
+            <span className="text-accent-2">●</span> NIT Hamirpur — Electronics &amp; Communication, &rsquo;28
           </p>
 
-          <h1 className="name-reveal text-6xl md:text-8xl lg:text-9xl font-display italic leading-[0.9] tracking-tight text-text-primary mb-6">
+          <h1 className="name-reveal text-6xl md:text-8xl lg:text-9xl font-display italic leading-[0.9] tracking-tight text-text-primary mb-7">
             Harsh Verma
           </h1>
 
-          <p className="blur-in text-base md:text-lg text-muted mb-3">
-            A{' '}
-            <AnimatePresence mode="wait">
-              <motion.span
-                key={roleIndex}
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.3, ease: 'easeInOut' }}
-                className="font-display italic text-text-primary inline-block"
-              >
-                {ROLES[roleIndex]}
-              </motion.span>
-            </AnimatePresence>
-            {' '}based in India.
+          <p className="blur-in text-base md:text-xl text-muted max-w-xl leading-relaxed mb-8">
+            I build real-world systems — from{' '}
+            <span className="text-text-primary">embedded firmware</span> and{' '}
+            <span className="text-text-primary">backend services</span> to{' '}
+            <span className="text-text-primary">open-source tools</span> that actually ship.
           </p>
 
-          <p className="blur-in text-sm md:text-base text-muted max-w-md mb-12">
-            Open-source contributor and backend developer building real-world systems
-            — from GNOME contributions to embedded Raspberry Pi projects.
-          </p>
+          {/* Terminal-style "currently" line bridging into the latest project */}
+          <a
+            href="#works"
+            className="blur-in group inline-flex items-center gap-2.5 font-mono text-xs sm:text-sm text-muted hover:text-text-primary mb-11 px-4 py-2 rounded-full border border-stroke/70 bg-bg/30 backdrop-blur-sm transition-colors"
+          >
+            <span className="text-accent-2">▸</span>
+            <span>currently building</span>
+            <span className="text-accent-1 font-medium">SparkIDE</span>
+            <span className="text-muted/70">— a block-based Arduino IDE</span>
+            <span className="text-accent-2 group-hover:translate-x-0.5 transition-transform">↓</span>
+          </a>
 
           <div className="inline-flex gap-4 flex-wrap justify-center">
-            <CTAButton id="see-works-btn" href="#works" variant="solid" label="See Works" />
-            <CTAButton id="reach-out-btn" href="mailto:harshkardam246+portfolio@gmail.com" variant="outline" label="Reach out..." />
+            <CTAButton id="see-works-btn" href="#works" variant="solid" label="Latest project" />
+            <CTAButton id="reach-out-btn" href="mailto:harshkardam246+portfolio@gmail.com" variant="outline" label="Reach out" />
           </div>
         </div>
 
         {/* Scroll indicator */}
         <div className="scroll-reveal absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3">
-          <span className="text-xs text-muted uppercase tracking-[0.2em]">Scroll</span>
+          <span className="font-mono text-[0.65rem] text-muted uppercase tracking-[0.25em]">Scroll</span>
           <div className="relative w-px h-10 bg-stroke overflow-hidden">
             <div className="absolute inset-x-0 top-0 h-1/2 accent-gradient animate-scroll-down" />
           </div>
@@ -166,7 +153,7 @@ function CTAButton({ id, href, variant, label }: CTAButtonProps) {
       {hovered && (
         <span
           className="absolute -inset-0.5 rounded-full -z-10"
-          style={{ background: 'linear-gradient(90deg, #89AACC 0%, #4E85BF 100%)' }}
+          style={{ background: 'linear-gradient(90deg, hsl(var(--accent-1)) 0%, hsl(var(--accent-2)) 100%)' }}
         />
       )}
       {hovered && variant === 'solid' && (
