@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 
-const NAV_LINKS = ['Home', 'Work', 'Resume']
+const NAV_LINKS = ['Home', 'Project', 'Resume']
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -17,7 +17,7 @@ export default function Navbar() {
     setActiveLink(link)
     if (link === 'Home') {
       window.scrollTo({ top: 0, behavior: 'smooth' })
-    } else if (link === 'Work') {
+    } else if (link === 'Project') {
       document.getElementById('works')?.scrollIntoView({ behavior: 'smooth' })
     } else if (link === 'Resume') {
       window.open('/resume.pdf', '_blank')
@@ -88,8 +88,8 @@ function LogoButton() {
       className="relative w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0"
       style={{
         background: hovered
-          ? 'linear-gradient(270deg, #89AACC 0%, #4E85BF 100%)'
-          : 'linear-gradient(90deg, #89AACC 0%, #4E85BF 100%)',
+          ? 'linear-gradient(270deg, #A8E05F 0%, #34C47C 100%)'
+          : 'linear-gradient(90deg, #A8E05F 0%, #34C47C 100%)',
         padding: '2px',
         transition: 'background 0.4s ease',
       }}
@@ -128,7 +128,7 @@ function SayHiButton() {
         <span
           className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"
           style={{
-            background: 'linear-gradient(90deg, #89AACC 0%, #4E85BF 100%)',
+            background: 'linear-gradient(90deg, #A8E05F 0%, #34C47C 100%)',
             inset: '-2px',
           }}
         />
