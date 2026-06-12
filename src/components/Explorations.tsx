@@ -1,220 +1,232 @@
 import { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-gsap.registerPlugin(ScrollTrigger)
+// "Tech playground" is the sun; each skill is a small gradient title revolving
+// around it on a tilted elliptical path. Titles sink back and shrink across the
+// top (passing behind the sun), then swell and come forward along the bottom.
+interface Planet {
+  label: string
+  from: string
+  to: string
+}
 
-const SKILLS = [
-  { label: 'GitHub Actions', category: 'Automation', color: '#A8E05F', bg: '/skills/automation.png' },
-  { label: 'GitLab CI/CD', category: 'Automation', color: '#34C47C', bg: '/skills/automation.png' },
-  { label: 'Kotlin', category: 'Android', color: '#6FE6B0', bg: '/skills/android.png' },
-  { label: 'Jetpack Compose', category: 'Android', color: '#A8E05F', bg: '/skills/android.png' },
-  { label: 'Raspberry Pi', category: 'Embedded', color: '#34C47C', bg: '/skills/embedded.png' },
-  { label: 'PCB Design', category: 'Hardware', color: '#6FE6B0', bg: '/skills/embedded.png' },
-  { label: 'Django', category: 'Backend', color: '#A8E05F', bg: '/skills/backend.png' },
-  { label: 'Firebase', category: 'Backend', color: '#34C47C', bg: '/skills/backend.png' },
-  { label: 'Python', category: 'Programming', color: '#6FE6B0', bg: '/skills/automation.png' },
-  { label: 'FFmpeg', category: 'Systems', color: '#A8E05F', bg: '/skills/embedded.png' },
-  { label: 'Linux', category: 'Systems', color: '#34C47C', bg: '/skills/embedded.png' },
-  { label: 'GTK+', category: 'Desktop', color: '#6FE6B0', bg: '/skills/backend.png' },
+interface Orbit {
+  aFrac: number // semi-major radius as a fraction of the stage's min dimension
+  period: number // seconds per revolution
+  dir: 1 | -1
+  offset: number // starting angle, degrees
+  size: 'sm' | 'md'
+  planets: Planet[]
+}
+
+// Vertical squash of every orbit — this is what reads as the 3D tilt.
+const B_RATIO = 0.4
+
+const ORBITS: Orbit[] = [
+  {
+    aFrac: 0.315,
+    period: 22,
+    dir: 1,
+    offset: 0,
+    size: 'md',
+    planets: [
+      { label: 'Python', from: '#A8E05F', to: '#34C47C' },
+      { label: 'Kotlin', from: '#86EFAC', to: '#2DD4BF' },
+      { label: 'C++', from: '#6FE6B0', to: '#34C47C' },
+      { label: 'Bash', from: '#BEF264', to: '#4ADE80' },
+    ],
+  },
+  {
+    aFrac: 0.48,
+    period: 34,
+    dir: -1,
+    offset: 40,
+    size: 'md',
+    planets: [
+      { label: 'Django', from: '#A8E05F', to: '#6FE6B0' },
+      { label: 'Firebase', from: '#34C47C', to: '#A8E05F' },
+      { label: 'MySQL', from: '#6FE6B0', to: '#34C47C' },
+      { label: 'Jetpack Compose', from: '#BEF264', to: '#4ADE80' },
+      { label: 'GitHub Actions', from: '#4ADE80', to: '#A8E05F' },
+    ],
+  },
+  {
+    aFrac: 0.645,
+    period: 46,
+    dir: 1,
+    offset: 18,
+    size: 'sm',
+    planets: [
+      { label: 'Raspberry Pi', from: '#34C47C', to: '#6FE6B0' },
+      { label: 'PCB Design', from: '#6FE6B0', to: '#A8E05F' },
+      { label: 'GitLab CI/CD', from: '#A8E05F', to: '#34C47C' },
+      { label: 'FFmpeg', from: '#2DD4BF', to: '#86EFAC' },
+      { label: 'Linux', from: '#4ADE80', to: '#BEF264' },
+      { label: 'GTK+', from: '#6FE6B0', to: '#2DD4BF' },
+    ],
+  },
 ]
 
-const COL1 = SKILLS.slice(0, 6)
-const COL2 = SKILLS.slice(6, 12)
+// Flattened list of planets, each carrying its orbit parameters + base angle.
+const PLANETS = ORBITS.flatMap((o) =>
+  o.planets.map((p, i) => ({
+    ...p,
+    aFrac: o.aFrac,
+    period: o.period,
+    dir: o.dir,
+    size: o.size,
+    baseAngle: o.offset + (i * 360) / o.planets.length,
+  }))
+)
 
 export default function Explorations() {
-  const sectionRef = useRef<HTMLElement>(null)
-  const contentRef = useRef<HTMLDivElement>(null)
-  const col1Ref = useRef<HTMLDivElement>(null)
-  const col2Ref = useRef<HTMLDivElement>(null)
+  const stageRef = useRef<HTMLDivElement>(null)
+  const planetRefs = useRef<(HTMLDivElement | null)[]>([])
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      ScrollTrigger.create({
-        trigger: sectionRef.current,
-        start: 'top top',
-        end: 'bottom bottom',
-        pin: contentRef.current,
-        pinSpacing: false,
-      })
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const start = performance.now()
+    let raf = 0
 
-      gsap.fromTo(col1Ref.current,
-        { y: 0 },
-        {
-          y: -320,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 1.5,
-          }
-        }
-      )
+    const tick = (now: number) => {
+      const stage = stageRef.current
+      if (stage) {
+        const unit = Math.min(stage.clientWidth, stage.clientHeight)
+        const t = reduce ? 0 : (now - start) / 1000
 
-      gsap.fromTo(col2Ref.current,
-        { y: -160 },
-        {
-          y: 160,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 1.5,
-          }
-        }
-      )
-    })
+        PLANETS.forEach((p, idx) => {
+          const el = planetRefs.current[idx]
+          if (!el) return
 
-    return () => ctx.revert()
+          const a = unit * p.aFrac
+          const b = a * B_RATIO
+          const theta = (p.baseAngle * Math.PI) / 180 + p.dir * (t / p.period) * Math.PI * 2
+
+          const x = a * Math.cos(theta)
+          const y = b * Math.sin(theta)
+          // depth: 0 at the top (far, behind sun) -> 1 at the bottom (near, front)
+          const depth = (Math.sin(theta) + 1) / 2
+          const scale = 0.66 + depth * 0.52
+
+          el.style.transform = `translate(-50%, -50%) translate(${x}px, ${y}px) scale(${scale})`
+          el.style.opacity = String(0.45 + depth * 0.55)
+          el.style.zIndex = String(Math.round(depth * 80) + 5)
+          el.style.filter = depth < 0.5 ? `blur(${(0.5 - depth) * 2.4}px)` : 'none'
+        })
+      }
+      raf = requestAnimationFrame(tick)
+    }
+
+    raf = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(raf)
   }, [])
 
   return (
     <section
-      ref={sectionRef}
       id="explorations"
-      className="relative section-scrim"
-      style={{ minHeight: '300vh' }}
+      className="relative section-scrim h-screen min-h-[640px] overflow-hidden"
     >
-      {/* Pinned center content */}
-      <div
-        ref={contentRef}
-        className="relative z-10 h-screen flex items-center justify-center pointer-events-none"
-      >
-        <motion.div
-          className="text-center px-6 pointer-events-auto"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
-        >
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="w-8 h-px bg-stroke" />
-            <span className="text-xs text-muted uppercase tracking-[0.3em]">Explorations</span>
-            <div className="w-8 h-px bg-stroke" />
-          </div>
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-display text-text-primary mb-4">
-            Tech <em>playground</em>
-          </h2>
-          <p className="text-sm text-muted max-w-sm mx-auto mb-8">
-            Tools, languages, and systems I've explored across embedded, backend, and open-source work.
-          </p>
-          <motion.a
-            id="explore-github-btn"
-            href="https://github.com/harshverma27"
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm text-muted border border-stroke/80 bg-bg/25 backdrop-blur-sm hover:text-text-primary transition-all duration-300 group relative"
-            whileHover={{ scale: 1.03 }}
+      <div ref={stageRef} className="absolute inset-0">
+        {/* Tilted elliptical orbit rings */}
+        {ORBITS.map((o) => (
+          <span
+            key={`ring-${o.aFrac}`}
+            className="absolute left-1/2 top-1/2 z-[1] -translate-x-1/2 -translate-y-1/2 rounded-[50%] border border-stroke/40"
+            style={{
+              width: `${o.aFrac * 200}vmin`,
+              height: `${o.aFrac * 200 * B_RATIO}vmin`,
+              boxShadow: 'inset 0 0 50px -26px hsl(var(--accent-2) / 0.5)',
+            }}
+          />
+        ))}
+
+        {/* The sun — "Tech playground" */}
+        <div className="absolute left-1/2 top-1/2 z-[45] -translate-x-1/2 -translate-y-1/2 px-6 text-center pointer-events-none">
+          <span
+            className="absolute left-1/2 top-1/2 -z-10 -translate-x-1/2 -translate-y-1/2 rounded-full blur-2xl"
+            style={{
+              width: '34vmin',
+              height: '34vmin',
+              background:
+                'radial-gradient(circle, hsl(var(--accent-2) / 0.45) 0%, hsl(var(--accent-1) / 0.18) 40%, transparent 70%)',
+              animation: 'sun-pulse 7s ease-in-out infinite',
+            }}
+          />
+          <motion.div
+            className="pointer-events-auto"
+            initial={{ opacity: 0, scale: 0.92 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.9, ease: [0.25, 0.1, 0.25, 1] }}
           >
-            <span
-              className="absolute rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-              style={{
-                background: 'linear-gradient(90deg, #A8E05F 0%, #34C47C 100%)',
-                inset: '-2px',
-              }}
-            />
-            <span className="absolute inset-0 bg-bg/85 rounded-full opacity-0 group-hover:opacity-100" />
-            <span className="relative z-10">View GitHub ↗</span>
-          </motion.a>
-        </motion.div>
-      </div>
-
-      {/* Parallax columns */}
-      <div
-        className="absolute inset-0 z-20 pointer-events-none"
-        style={{ paddingTop: '10vh', paddingBottom: '10vh' }}
-      >
-        <div className="h-full max-w-[1400px] mx-auto px-6 md:px-10 flex">
-          {/* Left column */}
-          <div className="flex-1 flex justify-start items-start pt-[20vh]">
-            <div ref={col1Ref} className="flex flex-col gap-4 pointer-events-auto">
-              {COL1.map((skill, i) => (
-                <SkillCard key={i} skill={skill} />
-              ))}
+            <div className="mb-3 flex items-center justify-center gap-2.5">
+              <span className="h-px w-6 bg-stroke" />
+              <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted">
+                Explorations
+              </span>
+              <span className="h-px w-6 bg-stroke" />
             </div>
-          </div>
-
-          {/* Right column */}
-          <div className="flex-1 flex justify-end items-start pt-[40vh]">
-            <div ref={col2Ref} className="flex flex-col gap-4 pointer-events-auto">
-              {COL2.map((skill, i) => (
-                <SkillCard key={i} skill={skill} />
-              ))}
-            </div>
-          </div>
+            <h2 className="font-display text-4xl leading-[0.95] text-text-primary md:text-6xl">
+              Tech <em>playground</em>
+            </h2>
+            <p className="mx-auto mt-3 max-w-[15rem] text-xs text-muted md:text-sm">
+              Tools, languages and systems in orbit.
+            </p>
+            <a
+              id="explore-github-btn"
+              href="https://github.com/harshverma27"
+              target="_blank"
+              rel="noreferrer"
+              className="group relative mt-5 inline-flex items-center gap-2 rounded-full border border-stroke/80 bg-bg/40 px-5 py-2.5 text-xs text-muted backdrop-blur-sm transition-colors duration-300 hover:text-text-primary"
+            >
+              <span
+                className="absolute rounded-full opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                style={{ inset: '-1.5px', background: 'linear-gradient(90deg, #A8E05F 0%, #34C47C 100%)' }}
+              />
+              <span className="absolute inset-0 rounded-full bg-bg/85 opacity-0 group-hover:opacity-100" />
+              <span className="relative z-10">View GitHub ↗</span>
+            </a>
+          </motion.div>
         </div>
+
+        {/* Orbiting titles — positioned every frame by the rAF loop */}
+        {PLANETS.map((p, idx) => (
+          <div
+            key={p.label}
+            ref={(el) => {
+              planetRefs.current[idx] = el
+            }}
+            className="absolute left-1/2 top-1/2 will-change-transform"
+            style={{ opacity: 0 }}
+          >
+            <PlanetChip planet={p} size={p.size} />
+          </div>
+        ))}
       </div>
     </section>
   )
 }
 
-interface Skill {
-  label: string
-  category: string
-  color: string
-  bg: string
-}
-
-function SkillCard({ skill }: { skill: Skill }) {
+function PlanetChip({ planet, size }: { planet: Planet; size: 'sm' | 'md' }) {
+  const pad = size === 'md' ? 'px-3.5 py-1.5 text-xs' : 'px-3 py-1 text-[11px]'
   return (
-    <motion.div
-      className="relative w-[180px] md:w-[240px] aspect-square max-w-[240px] rounded-3xl overflow-hidden cursor-default group"
-      whileHover={{ scale: 1.06, rotate: 1 }}
-      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+    <span
+      className={`relative block cursor-default whitespace-nowrap rounded-full font-mono font-medium tracking-tight transition-transform duration-300 hover:scale-[1.15] ${pad}`}
+      style={{
+        color: '#06100a',
+        background: `linear-gradient(135deg, ${planet.from} 0%, ${planet.to} 100%)`,
+        boxShadow: `0 0 0 1px rgba(255,255,255,0.12) inset, 0 8px 22px -8px ${planet.to}, 0 0 28px -10px ${planet.from}`,
+      }}
     >
-      {/* Background image */}
-      <img
-        src={skill.bg}
-        alt={skill.label}
-        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-      />
-
-      {/* Dark overlay — heavier at bottom */}
-      <div
-        className="absolute inset-0"
+      {/* Spherical top highlight */}
+      <span
+        className="pointer-events-none absolute inset-0 rounded-full"
         style={{
-          background: 'linear-gradient(to top, rgba(8,8,8,0.97) 0%, rgba(8,8,8,0.6) 50%, rgba(8,8,8,0.3) 100%)',
+          background:
+            'linear-gradient(180deg, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.05) 38%, transparent 60%)',
         }}
       />
-
-      {/* Accent colour tint */}
-      <div
-        className="absolute inset-0 opacity-0 group-hover:opacity-25 transition-opacity duration-500"
-        style={{ background: skill.color }}
-      />
-
-      {/* Border */}
-      <div className="absolute inset-0 rounded-3xl border border-white/8 group-hover:border-white/20 transition-colors duration-300" />
-
-      {/* Content */}
-      <div className="absolute inset-0 flex flex-col items-start justify-end p-4">
-        {/* Category tag */}
-        <span
-          className="text-xs px-2.5 py-0.5 rounded-full mb-2"
-          style={{
-            background: `${skill.color}20`,
-            color: skill.color,
-            border: `1px solid ${skill.color}40`,
-            backdropFilter: 'blur(8px)',
-          }}
-        >
-          {skill.category}
-        </span>
-
-        {/* Skill name */}
-        <h3 className="text-white font-semibold text-base leading-tight drop-shadow-lg">
-          {skill.label}
-        </h3>
-
-        {/* Accent bar */}
-        <div
-          className="mt-2 h-0.5 w-6 rounded-full transition-all duration-500 group-hover:w-12"
-          style={{ background: `linear-gradient(90deg, ${skill.color} 0%, transparent 100%)` }}
-        />
-      </div>
-    </motion.div>
+      <span className="relative z-10">{planet.label}</span>
+    </span>
   )
 }

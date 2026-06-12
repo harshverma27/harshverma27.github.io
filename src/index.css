@@ -135,4 +135,10 @@
       linear-gradient(90deg, hsl(var(--accent-2) / 0.05) 1px, transparent 1px);
     background-size: 22px 22px;
   }
+
+  /* --- Orbital "tech playground" system --- */
+  @keyframes sun-pulse {
+    0%, 100% { opacity: 0.55; transform: scale(1); }
+    50% { opacity: 0.9; transform: scale(1.06); }
+  }
 }
