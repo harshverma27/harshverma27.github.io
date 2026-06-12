@@ -78,7 +78,7 @@ export default function Hero() {
         {/* Content */}
         <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-5xl mx-auto">
           <p className="blur-in font-mono text-[0.7rem] sm:text-xs text-muted uppercase tracking-[0.32em] mb-8">
-            <span className="text-accent-2">●</span> NIT Hamirpur — Electronics &amp; Communication, &rsquo;28
+            <span className="text-accent-2">●</span> NIT Hamirpur — Electrical Engineering, &rsquo;28
           </p>
 
           <h1 className="name-reveal text-6xl md:text-8xl lg:text-9xl font-display italic leading-[0.9] tracking-tight text-text-primary mb-7">
