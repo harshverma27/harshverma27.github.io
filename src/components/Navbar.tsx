@@ -20,7 +20,7 @@ export default function Navbar() {
     } else if (link === 'Project') {
       document.getElementById('works')?.scrollIntoView({ behavior: 'smooth' })
     } else if (link === 'Resume') {
-      window.open('/resume.pdf', '_blank')
+      window.open('https://heyharsh.me/Resume/', '_blank')
     }
   }
 
