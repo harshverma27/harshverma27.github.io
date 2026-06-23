@@ -99,8 +99,8 @@ export default function Hero() {
           >
             <span className="text-accent-2">▸</span>
             <span>currently building</span>
-            <span className="text-accent-1 font-medium">SparkIDE</span>
-            <span className="text-muted/70">— a block-based Arduino IDE</span>
+            <span className="text-accent-1 font-medium">Nucleus</span>
+            <span className="text-muted/70">— an STM32 developer platform</span>
             <span className="text-accent-2 group-hover:translate-x-0.5 transition-transform">↓</span>
           </a>
 
