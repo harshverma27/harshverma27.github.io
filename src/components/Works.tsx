@@ -1,15 +1,21 @@
 import { motion } from 'framer-motion'
 
 const FEATURES = [
-  'Live Arduino C++ generated as you snap blocks',
-  '50+ custom blocks — the full standard library',
-  'One-click compile & flash via arduino-cli',
-  'Offline Blockly — no internet connection needed',
+  'Constraint solver that understands real STM32 silicon',
+  'Hardware-in-the-loop testing on QEMU and real boards',
+  'Real-time ITM trace decoding into a live React dashboard',
+  'One declarative stm32.toml replaces opaque XML configs',
 ]
 
-const STACK = ['Python', 'PyQt6', 'Google Blockly', 'QtWebEngine', 'arduino-cli']
+const STACK = ['Rust', 'QEMU', 'OpenOCD', 'tower-lsp', 'CMSIS Packs']
 
 const MORE_WORK = [
+  {
+    id: 'sparkide',
+    title: 'SparkIDE',
+    tag: 'Desktop · Python · PyQt6',
+    github: 'https://github.com/harshverma27/SparkIDE',
+  },
   {
     id: 'cctv',
     title: 'Real-Time Surveillance System',
@@ -69,16 +75,17 @@ export default function Works() {
             viewport={{ once: true, margin: '-100px' }}
           >
             <h2 className="text-5xl md:text-6xl lg:text-7xl font-display text-text-primary leading-[0.95] mb-4">
-              Spark<span className="italic text-accent-1">IDE</span>
+              Nucle<span className="italic text-accent-1">us</span>
             </h2>
             <p className="text-lg md:text-xl text-text-primary/90 font-display italic mb-5">
-              A block-based Arduino IDE for Linux.
+              A CLI-first developer platform for STM32.
             </p>
             <p className="text-sm md:text-[0.95rem] text-muted leading-relaxed max-w-lg mb-8">
-              SparkIDE brings Scratch-style block programming to Arduino. Drag blocks,
-              watch real C++ write itself in a live preview, then compile and flash it to a
-              connected board in a single click — all inside a fast, native PyQt6 desktop app
-              wrapping Google Blockly.
+              Nucleus replaces STM32CubeIDE's opaque XML pin configs with a single
+              version-controlled stm32.toml. A constraint solver built on real silicon
+              models catches pinout collisions and clock-tree violations, hardware-in-the-loop
+              tests run on QEMU and real boards through the same interface, and an ITM trace
+              decoder streams live to a React dashboard.
             </p>
 
             {/* Feature list */}
@@ -106,8 +113,8 @@ export default function Works() {
             {/* Meta + CTAs */}
             <div className="flex flex-wrap items-center gap-x-6 gap-y-4">
               <a
-                id="sparkide-github-btn"
-                href="https://github.com/harshverma27/SparkIDE"
+                id="nucleus-github-btn"
+                href="https://github.com/harshverma27/nucleus"
                 target="_blank"
                 rel="noreferrer"
                 className="group inline-flex items-center gap-2.5 rounded-full px-6 py-3 text-sm font-medium bg-text-primary text-bg hover:bg-accent-1 transition-colors"
@@ -116,13 +123,13 @@ export default function Works() {
                 <span className="group-hover:translate-x-0.5 transition-transform">↗</span>
               </a>
               <a
-                id="sparkide-releases-btn"
-                href="https://github.com/harshverma27/SparkIDE/releases/latest"
+                id="nucleus-releases-btn"
+                href="https://github.com/harshverma27/nucleus/releases/latest"
                 target="_blank"
                 rel="noreferrer"
                 className="font-mono text-xs text-muted hover:text-text-primary transition-colors inline-flex items-center gap-2"
               >
-                <span className="text-accent-2">●</span> v1.0.0 · MIT · Linux
+                <span className="text-accent-2">●</span> v0.1.0 · Apache-2.0/MIT · Rust
               </a>
             </div>
           </motion.div>
@@ -140,7 +147,7 @@ export default function Works() {
               className="absolute -inset-6 -z-10 rounded-[2rem] opacity-60 blur-3xl"
               style={{ background: 'radial-gradient(60% 60% at 50% 40%, hsl(var(--accent-2) / 0.22), transparent 70%)' }}
             />
-            <SparkIdeMock />
+            <NucleusMock />
           </motion.div>
         </div>
 
@@ -201,28 +208,10 @@ export default function Works() {
 }
 
 /* ------------------------------------------------------------------ */
-/* Bespoke SparkIDE window — block workspace + live C++ generation    */
+/* Bespoke Nucleus window — stm32.toml config + CLI verification log  */
 /* ------------------------------------------------------------------ */
 
-type Tone = 'structure' | 'io' | 'time'
-
-const TONE: Record<Tone, string> = {
-  structure: 'border-amber-300/40 bg-amber-300/[0.08] text-amber-100/90',
-  io: 'border-accent-1/40 bg-accent-1/[0.08] text-accent-1',
-  time: 'border-accent-3/40 bg-accent-3/[0.08] text-accent-3',
-}
-
-function Block({ tone, children, indent = false }: { tone: Tone; children: React.ReactNode; indent?: boolean }) {
-  return (
-    <div className={indent ? 'pl-5' : ''}>
-      <div className={`inline-flex items-center rounded-md border px-2.5 py-1.5 text-[0.7rem] leading-none ${TONE[tone]}`}>
-        {children}
-      </div>
-    </div>
-  )
-}
-
-function SparkIdeMock() {
+function NucleusMock() {
   return (
     <div className="relative rounded-2xl border border-stroke bg-[#080b09]/95 overflow-hidden shadow-2xl shadow-black/50 font-mono">
       <div className="absolute inset-0 lab-grid opacity-50 pointer-events-none" />
@@ -231,43 +220,44 @@ function SparkIdeMock() {
       <div className="relative flex items-center justify-between border-b border-stroke/70 px-4 h-9 bg-[#0a0e0b]">
         <div className="flex items-center gap-2.5">
           <span className="w-2 h-2 rounded-full bg-accent-1 animate-led-blink" />
-          <span className="text-[0.72rem] text-accent-1 font-semibold">SparkIDE</span>
-          <span className="text-[0.66rem] text-muted/80 hidden sm:inline">Hybrid Lab Console</span>
+          <span className="text-[0.72rem] text-accent-1 font-semibold">nucleus</span>
+          <span className="text-[0.66rem] text-muted/80 hidden sm:inline">NUCLEO-F446RE</span>
         </div>
-        <span className="text-[0.66rem] text-muted/80">blink.ino</span>
+        <span className="text-[0.66rem] text-muted/80">stm32.toml</span>
       </div>
 
       {/* Body */}
       <div className="relative grid grid-cols-1 sm:grid-cols-2 min-h-[300px]">
-        {/* Workspace */}
+        {/* Config */}
         <div className="p-4 border-b sm:border-b-0 sm:border-r border-stroke/60">
-          <div className="text-[0.62rem] text-muted/70 uppercase tracking-[0.2em] mb-3">// workspace</div>
-          <div className="space-y-1.5">
-            <Block tone="structure">setup</Block>
-            <Block tone="io" indent>pinMode <span className="text-muted ml-1">13, OUTPUT</span></Block>
-            <Block tone="structure">loop</Block>
-            <Block tone="io" indent>digitalWrite <span className="text-muted ml-1">13, HIGH</span></Block>
-            <Block tone="time" indent>delay <span className="text-muted ml-1">1000</span></Block>
-            <Block tone="io" indent>digitalWrite <span className="text-muted ml-1">13, LOW</span></Block>
-            <Block tone="time" indent>delay <span className="text-muted ml-1">1000</span></Block>
-          </div>
+          <div className="text-[0.62rem] text-muted/70 uppercase tracking-[0.2em] mb-3">// stm32.toml</div>
+          <pre className="text-[0.7rem] leading-[1.55] whitespace-pre overflow-x-auto">
+<span className="text-accent-3">[board]</span>{'\n'}
+mcu = <span className="text-accent-1">"STM32F446RE"</span>{'\n'}
+{'\n'}
+<span className="text-accent-3">[peripherals.usart2]</span>{'\n'}
+tx = <span className="text-accent-1">"PA2"</span>{'\n'}
+rx = <span className="text-accent-1">"PA3"</span>{'\n'}
+baud = <span className="text-accent-1">115200</span>{'\n'}
+{'\n'}
+<span className="text-accent-3">[peripherals.dma1.ch6]</span>{'\n'}
+peripheral = <span className="text-accent-1">"usart2.tx"</span>
+          </pre>
         </div>
 
-        {/* Generated sketch */}
+        {/* CLI output */}
         <div className="p-4">
-          <div className="text-[0.62rem] text-muted/70 uppercase tracking-[0.2em] mb-3">// generated sketch · c++</div>
+          <div className="text-[0.62rem] text-muted/70 uppercase tracking-[0.2em] mb-3">// nucleus check &amp;&amp; build &amp;&amp; flash</div>
           <pre className="text-[0.7rem] leading-[1.55] whitespace-pre overflow-x-auto">
-<span className="text-muted/60">// auto-generated by SparkIDE</span>{'\n'}
-<span className="text-accent-2">void</span> <span className="text-text-primary">setup</span>() {'{'}{'\n'}
-{'  '}<span className="text-text-primary">pinMode</span>(<span className="text-accent-1">13</span>, <span className="text-accent-3">OUTPUT</span>);{'\n'}
-{'}'}{'\n'}
+<span className="text-muted/60">$ nucleus check</span>{'\n'}
+<span className="text-accent-1">✓</span> pinout verified — no collisions{'\n'}
+<span className="text-accent-1">✓</span> clock tree resolved <span className="text-accent-3">(180MHz)</span>{'\n'}
+<span className="text-accent-1">✓</span> DMA arbitration clear{'\n'}
 {'\n'}
-<span className="text-accent-2">void</span> <span className="text-text-primary">loop</span>() {'{'}{'\n'}
-{'  '}<span className="text-text-primary">digitalWrite</span>(<span className="text-accent-1">13</span>, <span className="text-accent-3">HIGH</span>);{'\n'}
-{'  '}<span className="text-text-primary">delay</span>(<span className="text-accent-1">1000</span>);{'\n'}
-{'  '}<span className="text-text-primary">digitalWrite</span>(<span className="text-accent-1">13</span>, <span className="text-accent-3">LOW</span>);{'\n'}
-{'  '}<span className="text-text-primary">delay</span>(<span className="text-accent-1">1000</span>);{'\n'}
-{'}'}<span className="inline-block w-[7px] h-[0.95em] bg-accent-1 align-middle ml-1 animate-caret-blink" />
+<span className="text-muted/60">$ nucleus build &amp;&amp; flash</span>{'\n'}
+<span className="text-accent-1">✓</span> firmware linked <span className="text-accent-3">(24.1kB)</span>{'\n'}
+<span className="text-accent-1">✓</span> flashed via ST-Link/SWD{'\n'}
+→ ITM trace streaming<span className="inline-block w-[7px] h-[0.95em] bg-accent-1 align-middle ml-1 animate-caret-blink" />
           </pre>
         </div>
       </div>
@@ -275,8 +265,8 @@ function SparkIdeMock() {
       {/* Build/output strip */}
       <div className="relative flex items-center gap-3 border-t border-stroke/70 px-4 py-2 bg-[#0a0e0b] text-[0.66rem]">
         <span className="text-accent-1">✓</span>
-        <span className="text-muted">Sketch uses 924 bytes (2%)</span>
-        <span className="text-muted/60 hidden sm:inline">→ /dev/ttyACM0 · arduino:avr:uno</span>
+        <span className="text-muted">Verify · Prove · Observe · Crown</span>
+        <span className="text-muted/60 hidden sm:inline">→ QEMU + ST-Link/SWD</span>
         <div className="ml-auto relative w-16 h-1 rounded-full bg-stroke/80 overflow-hidden">
           <div className="absolute inset-y-0 w-1/3 rounded-full bg-accent-1 animate-build-sweep" />
         </div>
