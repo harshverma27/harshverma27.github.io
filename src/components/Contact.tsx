@@ -10,6 +10,7 @@ const MARQUEE_TEXT = 'OPEN SOURCE • BACKEND • EMBEDDED • GNOME • RASPBER
 const SOCIAL_LINKS = [
   { id: 'github', label: 'GitHub', href: 'https://github.com/harshverma27' },
   { id: 'linkedin', label: 'LinkedIn', href: 'https://www.linkedin.com/in/harshhvermaa/' },
+  { id: 'instagram', label: 'Instagram', href: 'https://www.instagram.com/whois_hharsh?igsh=ODM3djA1dGFhdDVl&utm_source=qr' },
   { id: 'gitlab', label: 'GitLab', href: 'https://gitlab.gnome.org/harshverma' },
 ]
 
