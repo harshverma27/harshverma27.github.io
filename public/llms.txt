@@ -1,0 +1,14 @@
+# Harsh Verma
+
+> Open-source contributor, backend developer, and embedded systems enthusiast. NIT Hamirpur EE student building real-world software.
+
+Personal developer portfolio at heyharsh.me — single-page site covering projects, blog/journal posts, explorations, and contact info.
+
+## Pages
+
+- [Portfolio](https://heyharsh.me/): Hero, work/projects, journal, explorations, skills, and contact sections.
+- [Resume](https://heyharsh.me/Resume): Résumé.
+
+## Contact
+
+- GitHub: https://github.com/harshverma27
