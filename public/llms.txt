@@ -7,7 +7,7 @@ Personal developer portfolio at heyharsh.me — single-page site covering projec
 ## Pages
 
 - [Portfolio](https://heyharsh.me/): Hero, work/projects, journal, explorations, skills, and contact sections.
-- [Resume](https://heyharsh.me/Resume): Résumé.
+- [Resume](https://resume.heyharsh.me): Résumé.
 
 ## Contact
 
