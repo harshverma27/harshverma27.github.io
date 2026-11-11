@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 
-const NAV_LINKS = ['Home', 'Project', 'Resume']
+const NAV_LINKS = ['Home', 'FLOSS', 'Projects', 'Resume']
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -17,7 +17,9 @@ export default function Navbar() {
     setActiveLink(link)
     if (link === 'Home') {
       window.scrollTo({ top: 0, behavior: 'smooth' })
-    } else if (link === 'Project') {
+    } else if (link === 'FLOSS') {
+      document.getElementById('floss')?.scrollIntoView({ behavior: 'smooth' })
+    } else if (link === 'Projects') {
       document.getElementById('works')?.scrollIntoView({ behavior: 'smooth' })
     } else if (link === 'Resume') {
       window.open('https://resume.heyharsh.me', '_blank')
@@ -54,6 +56,7 @@ export default function Navbar() {
               className={`
                 text-xs sm:text-sm rounded-full px-3 sm:px-4 py-1.5 sm:py-2 
                 transition-all duration-200 font-medium
+                ${link === 'Home' ? 'hidden sm:block' : ''}
                 ${activeLink === link
                   ? 'text-text-primary bg-stroke/50'
                   : 'text-muted hover:text-text-primary hover:bg-stroke/50'

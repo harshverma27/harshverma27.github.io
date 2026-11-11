@@ -3,25 +3,32 @@ import { motion, useInView } from 'framer-motion'
 
 const STATS = [
   {
-    id: 'stat-files',
-    value: '65+',
-    label: 'Files Covered',
-    sub: 'GIMP test framework',
+    id: 'stat-mrs',
+    value: '25',
+    label: 'Merge requests',
+    sub: 'Merged upstream',
     accent: '#A8E05F',
   },
   {
-    id: 'stat-hackathons',
-    value: '3',
-    label: 'Hackathons',
-    sub: 'At NIT Hamirpur',
+    id: 'stat-projects',
+    value: '7',
+    label: 'Projects',
+    sub: 'GNOME, Red Hat and meson',
     accent: '#34C47C',
   },
   {
-    id: 'stat-students',
-    value: '2500+',
-    label: 'Students Reached',
-    sub: 'Via Electrothon events',
+    id: 'stat-lines',
+    value: '6,500+',
+    label: 'Lines merged',
+    sub: 'Mostly test infrastructure',
     accent: '#6FE6B0',
+  },
+  {
+    id: 'stat-cves',
+    value: '2',
+    label: 'CVEs',
+    sub: 'Found and fixed',
+    accent: '#86EFAC',
   },
 ]
 
@@ -34,7 +41,7 @@ export default function Stats() {
       <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">
         <motion.div
           ref={ref}
-          className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12"
+          className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12"
           initial="hidden"
           animate={inView ? 'visible' : 'hidden'}
           variants={{
@@ -60,7 +67,7 @@ export default function Stats() {
 
               {/* Value */}
               <div
-                className="text-5xl md:text-6xl lg:text-7xl font-display italic mb-3 leading-none"
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display italic mb-3 leading-none"
                 style={{ color: stat.accent }}
               >
                 {stat.value}

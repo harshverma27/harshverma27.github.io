@@ -30,10 +30,11 @@ const ORBITS: Orbit[] = [
     offset: 0,
     size: 'md',
     planets: [
-      { label: 'Python', from: '#A8E05F', to: '#34C47C' },
-      { label: 'Kotlin', from: '#86EFAC', to: '#2DD4BF' },
-      { label: 'C++', from: '#6FE6B0', to: '#34C47C' },
-      { label: 'Bash', from: '#BEF264', to: '#4ADE80' },
+      { label: 'C', from: '#A8E05F', to: '#34C47C' },
+      { label: 'Python', from: '#86EFAC', to: '#2DD4BF' },
+      { label: 'Rust', from: '#6FE6B0', to: '#34C47C' },
+      { label: 'C++', from: '#BEF264', to: '#4ADE80' },
+      { label: 'Bash', from: '#4ADE80', to: '#A8E05F' },
     ],
   },
   {
@@ -43,11 +44,11 @@ const ORBITS: Orbit[] = [
     offset: 40,
     size: 'md',
     planets: [
-      { label: 'Django', from: '#A8E05F', to: '#6FE6B0' },
-      { label: 'Firebase', from: '#34C47C', to: '#A8E05F' },
-      { label: 'MySQL', from: '#6FE6B0', to: '#34C47C' },
-      { label: 'Jetpack Compose', from: '#BEF264', to: '#4ADE80' },
-      { label: 'GitHub Actions', from: '#4ADE80', to: '#A8E05F' },
+      { label: 'dogtail', from: '#A8E05F', to: '#6FE6B0' },
+      { label: 'AT-SPI', from: '#34C47C', to: '#A8E05F' },
+      { label: 'Wayland', from: '#6FE6B0', to: '#34C47C' },
+      { label: 'Meson', from: '#BEF264', to: '#4ADE80' },
+      { label: 'GitLab CI/CD', from: '#4ADE80', to: '#A8E05F' },
     ],
   },
   {
@@ -59,7 +60,8 @@ const ORBITS: Orbit[] = [
     planets: [
       { label: 'Raspberry Pi', from: '#34C47C', to: '#6FE6B0' },
       { label: 'PCB Design', from: '#6FE6B0', to: '#A8E05F' },
-      { label: 'GitLab CI/CD', from: '#A8E05F', to: '#34C47C' },
+      { label: 'QEMU', from: '#A8E05F', to: '#34C47C' },
+      { label: 'Kotlin', from: '#86EFAC', to: '#2DD4BF' },
       { label: 'FFmpeg', from: '#2DD4BF', to: '#86EFAC' },
       { label: 'Linux', from: '#4ADE80', to: '#BEF264' },
       { label: 'GTK+', from: '#6FE6B0', to: '#2DD4BF' },

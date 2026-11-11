@@ -1,14 +1,17 @@
 # Harsh Verma
 
-> Open-source contributor, backend developer, and embedded systems enthusiast. NIT Hamirpur EE student building real-world software.
+> GNOME contributor working on test infrastructure for GIMP and Red Hat's dogtail. NIT Hamirpur EE student.
+
+Built GIMP's first end-to-end UI tests and the hermetic test sessions that headlined dogtail 2.1.0. Found and fixed two GIMP CVEs (CVE-2026-97185, CVE-2026-90947), credited by Red Hat. 25 merge requests merged across 7 projects.
 
 Personal developer portfolio at heyharsh.me — single-page site covering projects, blog/journal posts, explorations, and contact info.
 
 ## Pages
 
-- [Portfolio](https://heyharsh.me/): Hero, work/projects, journal, explorations, skills, and contact sections.
+- [Portfolio](https://heyharsh.me/): Open source work, projects, community, journal, skills, and contact.
 - [Resume](https://resume.heyharsh.me): Résumé.
 
 ## Contact
 
+- GNOME GitLab: https://gitlab.gnome.org/harshverma
 - GitHub: https://github.com/harshverma27

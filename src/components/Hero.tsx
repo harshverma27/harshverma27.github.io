@@ -86,26 +86,25 @@ export default function Hero() {
           </h1>
 
           <p className="blur-in text-base md:text-xl text-muted max-w-xl leading-relaxed mb-8">
-            I build real-world systems — from{' '}
-            <span className="text-text-primary">embedded firmware</span> and{' '}
-            <span className="text-text-primary">backend services</span> to{' '}
-            <span className="text-text-primary">open-source tools</span> that actually ship.
+            I build test infrastructure for open source:{' '}
+            <span className="text-text-primary">GIMP's first UI tests</span>,{' '}
+            <span className="text-text-primary">dogtail's hermetic sessions</span>, and{' '}
+            <span className="text-text-primary">two CVE fixes</span> along the way.
           </p>
 
-          {/* Terminal-style "currently" line bridging into the latest project */}
+          {/* Terminal-style "currently" line bridging into the open source section */}
           <a
-            href="#works"
+            href="#floss"
             className="blur-in group inline-flex items-center gap-2.5 font-mono text-xs sm:text-sm text-muted hover:text-text-primary mb-11 px-4 py-2 rounded-full border border-stroke/70 bg-bg/30 backdrop-blur-sm transition-colors"
           >
             <span className="text-accent-2">▸</span>
-            <span>currently building</span>
-            <span className="text-accent-1 font-medium">Nucleus</span>
-            <span className="text-muted/70">— an STM32 developer platform</span>
+            <span className="whitespace-nowrap"><span className="hidden sm:inline">currently </span>contributing to</span>
+            <span className="text-accent-1 font-medium whitespace-nowrap">GIMP &amp; dogtail</span>
             <span className="text-accent-2 group-hover:translate-x-0.5 transition-transform">↓</span>
           </a>
 
           <div className="inline-flex gap-4 flex-wrap justify-center">
-            <CTAButton id="see-works-btn" href="#works" variant="solid" label="Latest project" />
+            <CTAButton id="see-works-btn" href="#floss" variant="solid" label="See open source work" />
             <CTAButton id="reach-out-btn" href="mailto:harshkardam246+portfolio@gmail.com" variant="outline" label="Reach out" />
           </div>
         </div>
