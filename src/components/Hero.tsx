@@ -1,28 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
-import Hls from 'hls.js'
+import ParticleField from './ParticleField'
 import gsap from 'gsap'
 
-const HLS_URL = 'https://stream.mux.com/Aa02T7oM1wH5Mk5EEVDYhbZ1ChcdhRsS2m1NYyx4Ua1g.m3u8'
-
 export default function Hero() {
-  const videoRef = useRef<HTMLVideoElement>(null)
-
-  // HLS video setup
-  useEffect(() => {
-    const video = videoRef.current
-    if (!video) return
-
-    if (Hls.isSupported()) {
-      const hls = new Hls()
-      hls.loadSource(HLS_URL)
-      hls.attachMedia(video)
-      return () => hls.destroy()
-    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-      video.src = HLS_URL
-    }
-  }, [])
-
   // GSAP entrance animation
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -57,16 +38,8 @@ export default function Hero() {
         normally, so later sections can reveal the same motion behind them.
       */}
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none" aria-hidden="true">
-        <video
-          ref={videoRef}
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute top-1/2 left-1/2 min-w-full min-h-full object-cover -translate-x-1/2 -translate-y-1/2"
-        />
-        <div className="absolute inset-0 bg-black/60" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(8,12,10,0.18)_42%,rgba(8,12,10,0.82)_100%)]" />
+        <ParticleField />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(8,12,10,0.18)_42%,rgba(8,12,10,0.4)_100%)]" />
         <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-bg/90 to-transparent" />
         <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-bg/50 to-transparent" />
       </div>
