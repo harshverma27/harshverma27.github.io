@@ -1,9 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
-import Hls from 'hls.js'
 import gsap from 'gsap'
-
-const HLS_URL = 'https://stream.mux.com/Aa02T7oM1wH5Mk5EEVDYhbZ1ChcdhRsS2m1NYyx4Ua1g.m3u8'
 
 const MARQUEE_TEXT = 'OPEN SOURCE • BACKEND • EMBEDDED • GNOME • RASPBERRY PI • AUTOMATION • '
 
@@ -15,22 +12,7 @@ const SOCIAL_LINKS = [
 ]
 
 export default function Contact() {
-  const videoRef = useRef<HTMLVideoElement>(null)
   const marqueeRef = useRef<HTMLDivElement>(null)
-
-  // HLS video setup
-  useEffect(() => {
-    const video = videoRef.current
-    if (!video) return
-    if (Hls.isSupported()) {
-      const hls = new Hls()
-      hls.loadSource(HLS_URL)
-      hls.attachMedia(video)
-      return () => hls.destroy()
-    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-      video.src = HLS_URL
-    }
-  }, [])
 
   // GSAP marquee
   useEffect(() => {
@@ -50,18 +32,6 @@ export default function Contact() {
       {/* Background video container */}
       <div className="relative rounded-3xl overflow-hidden mx-6 md:mx-10 lg:mx-16 mb-16 md:mb-24">
         <div className="relative h-64 md:h-80 overflow-hidden">
-          {/* Flipped video */}
-          <video
-            ref={videoRef}
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="absolute top-1/2 left-1/2 min-w-full min-h-full object-cover -translate-x-1/2 -translate-y-1/2"
-            style={{ transform: 'translate(-50%, -50%) scaleY(-1)' }}
-          />
-          {/* Heavy overlay */}
-          <div className="absolute inset-0 bg-black/60" />
           {/* Gradient overlays */}
           <div className="absolute inset-0 bg-gradient-to-t from-bg/90 via-transparent to-transparent" />
 
