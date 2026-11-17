@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
-import ParticleField from './ParticleField'
 import gsap from 'gsap'
 
 export default function Hero() {
@@ -37,11 +36,15 @@ export default function Hero() {
         Keep only the animated background fixed. The hero copy scrolls away
         normally, so later sections can reveal the same motion behind them.
       */}
-      <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none" aria-hidden="true">
-        <ParticleField />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(8,12,10,0.18)_42%,rgba(8,12,10,0.4)_100%)]" />
-        <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-bg/90 to-transparent" />
-        <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-bg/50 to-transparent" />
+      <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none bg-black" aria-hidden="true">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          src="/hero.mp4"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
       </div>
 
       <section
@@ -49,8 +52,8 @@ export default function Hero() {
         className="relative z-10 w-full h-screen min-h-[640px] flex items-center justify-center overflow-hidden"
       >
         {/* Content */}
-        <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-5xl mx-auto">
-          <p className="blur-in font-mono text-[0.7rem] sm:text-xs text-muted uppercase tracking-[0.32em] mb-8">
+        <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-5xl mx-auto [text-shadow:0_0_6px_rgba(0,0,0,0.65),0_2px_28px_rgba(0,0,0,0.9)]">
+          <p className="blur-in font-mono text-[0.7rem] sm:text-xs text-white/85 uppercase tracking-[0.32em] mb-8">
             <span className="text-accent-2">●</span> NIT Hamirpur — Electrical Engineering, &rsquo;28
           </p>
 
@@ -58,7 +61,7 @@ export default function Hero() {
             Harsh Verma
           </h1>
 
-          <p className="blur-in text-base md:text-xl text-muted max-w-xl leading-relaxed mb-8">
+          <p className="blur-in text-base md:text-xl text-white/85 max-w-xl leading-relaxed mb-8">
             I build test infrastructure for open source:{' '}
             <span className="text-text-primary">GIMP's first UI tests</span>,{' '}
             <span className="text-text-primary">dogtail's hermetic sessions</span>, and{' '}
